@@ -45,6 +45,19 @@ const plugins = process.env.BLOB_READ_WRITE_TOKEN
     ]
   : []
 
+// Diagnóstico temporal: loguea (sin exponer valores) qué variables de entorno
+// clave están realmente presentes en runtime. Ayuda a distinguir "no está
+// seteada" de "está seteada pero el deploy no la tomó". Sacar una vez resuelto.
+console.log('[env-check]', {
+  POSTGRES_URL: Boolean(process.env.POSTGRES_URL),
+  DATABASE_URL: Boolean(process.env.DATABASE_URL),
+  POSTGRESADS_URL: Boolean(process.env.POSTGRESADS_URL),
+  PAYLOAD_SECRET: Boolean(process.env.PAYLOAD_SECRET),
+  BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+  NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL || null,
+  VERCEL_ENV: process.env.VERCEL_ENV || null,
+})
+
 export default buildConfig({
   admin: {
     user: Users.slug,
