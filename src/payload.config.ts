@@ -19,13 +19,32 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 // En Vercel no hay disco persistente: usamos Postgres si hay una connection
-// string disponible (POSTGRES_URL, la inyecta la integración de Neon/Vercel
-// Postgres), y SQLite local como fallback para desarrollo sin dependencias.
-// `POSTGRESADS_URL`: nombre que sugirió la integración de Neon en Vercel para
-// este proyecto (para no chocar con la variable de otro proyecto conectado a
-// la misma cuenta). Se acepta como alias por si en Vercel queda con ese nombre
-// en vez de POSTGRES_URL/DATABASE_URL.
-const postgresUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL || process.env.POSTGRESADS_URL
+// string disponible, y SQLite local como fallback para desarrollo sin
+// dependencias. La integración de Neon en este proyecto le puso a TODAS sus
+// variables el prefijo `POSTGRESADS_` (para no chocar con la de otro proyecto
+// en la misma cuenta) — no reemplaza el nombre entero, así que la pooled
+// queda como `POSTGRESADS_POSTGRES_URL` / `POSTGRESADS_DATABASE_URL`, no
+// `POSTGRESADS_URL` sola. En vez de perseguir el nombre exacto, buscamos
+// cualquier variable que empiece con ese prefijo y sea una connection string
+// de Postgres, priorizando la pooled sobre la _UNPOOLED/_NON_POOLING.
+function findPostgresUrl(): string | undefined {
+  const direct = process.env.POSTGRES_URL || process.env.DATABASE_URL
+  if (direct) return direct
+
+  const candidates = Object.entries(process.env)
+    .filter(
+      ([key, value]) =>
+        key.startsWith('POSTGRESADS_') && typeof value === 'string' && value.startsWith('postgres'),
+    )
+    .sort(([a], [b]) => {
+      const score = (k: string) => (/UNPOOLED|NON_POOLING|PRISMA/.test(k) ? 1 : 0)
+      return score(a) - score(b)
+    })
+
+  return candidates[0]?.[1]
+}
+
+const postgresUrl = findPostgresUrl()
 const db = postgresUrl
   ? // `push: true` crea/sincroniza el schema solo, sin correr migraciones a mano.
     // Bien para arrancar con una base vacía. Ojo: una vez que haya datos reales
@@ -49,9 +68,8 @@ const plugins = process.env.BLOB_READ_WRITE_TOKEN
 // clave están realmente presentes en runtime. Ayuda a distinguir "no está
 // seteada" de "está seteada pero el deploy no la tomó". Sacar una vez resuelto.
 console.log('[env-check]', {
-  POSTGRES_URL: Boolean(process.env.POSTGRES_URL),
-  DATABASE_URL: Boolean(process.env.DATABASE_URL),
-  POSTGRESADS_URL: Boolean(process.env.POSTGRESADS_URL),
+  postgresUrlFound: Boolean(postgresUrl),
+  postgresadsKeysSeen: Object.keys(process.env).filter((k) => k.startsWith('POSTGRESADS_')),
   PAYLOAD_SECRET: Boolean(process.env.PAYLOAD_SECRET),
   BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
   NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL || null,
