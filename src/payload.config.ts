@@ -21,7 +21,11 @@ const dirname = path.dirname(filename)
 // En Vercel no hay disco persistente: usamos Postgres si hay una connection
 // string disponible (POSTGRES_URL, la inyecta la integración de Neon/Vercel
 // Postgres), y SQLite local como fallback para desarrollo sin dependencias.
-const postgresUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL
+// `POSTGRESADS_URL`: nombre que sugirió la integración de Neon en Vercel para
+// este proyecto (para no chocar con la variable de otro proyecto conectado a
+// la misma cuenta). Se acepta como alias por si en Vercel queda con ese nombre
+// en vez de POSTGRES_URL/DATABASE_URL.
+const postgresUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL || process.env.POSTGRESADS_URL
 const db = postgresUrl
   ? // `push: true` crea/sincroniza el schema solo, sin correr migraciones a mano.
     // Bien para arrancar con una base vacía. Ojo: una vez que haya datos reales
