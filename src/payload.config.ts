@@ -12,6 +12,7 @@ import { Media } from './collections/Media.ts'
 import { Categorias } from './collections/Categorias.ts'
 import { Trabajos } from './collections/Trabajos.ts'
 import { Certificaciones } from './collections/Certificaciones.ts'
+import { Cotizaciones } from './collections/Cotizaciones.ts'
 import { SiteSettings } from './globals/SiteSettings.ts'
 import { Institucional } from './globals/Institucional.ts'
 
@@ -64,18 +65,6 @@ const plugins = process.env.BLOB_READ_WRITE_TOKEN
     ]
   : []
 
-// Diagnóstico temporal: loguea (sin exponer valores) qué variables de entorno
-// clave están realmente presentes en runtime. Ayuda a distinguir "no está
-// seteada" de "está seteada pero el deploy no la tomó". Sacar una vez resuelto.
-console.log('[env-check]', {
-  postgresUrlFound: Boolean(postgresUrl),
-  postgresadsKeysSeen: Object.keys(process.env).filter((k) => k.startsWith('POSTGRESADS_')),
-  PAYLOAD_SECRET: Boolean(process.env.PAYLOAD_SECRET),
-  BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-  NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL || null,
-  VERCEL_ENV: process.env.VERCEL_ENV || null,
-})
-
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -100,7 +89,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Trabajos, Categorias, Certificaciones, Media, Users],
+  collections: [Trabajos, Categorias, Certificaciones, Cotizaciones, Media, Users],
   globals: [SiteSettings, Institucional],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

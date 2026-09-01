@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { getServerURL } from '../lib/getURL.ts'
 import { slugify } from '../lib/slugify.ts'
+import { BUILDING_TYPE_OPTIONS } from '../lib/buildingTypes.ts'
 
 export const Trabajos: CollectionConfig = {
   slug: 'trabajos',
@@ -79,6 +80,15 @@ export const Trabajos: CollectionConfig = {
               hasMany: true,
               admin: {
                 description: 'Tipo(s) de equipo instalados en esta obra.',
+              },
+            },
+            {
+              name: 'tipoEdificio',
+              type: 'select',
+              label: 'Tipo de edificio',
+              options: [...BUILDING_TYPE_OPTIONS],
+              admin: {
+                description: 'Opcional. Para segmentar el portfolio por tipo de edificio más adelante.',
               },
             },
             {

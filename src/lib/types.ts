@@ -34,6 +34,7 @@ export type Trabajo = {
   direccion?: string | null
   localidad?: string | null
   categoria?: (Categoria | number | string)[] | null
+  tipoEdificio?: string | null
   destacada?: boolean | null
   equipos?: Equipo[] | null
   galeria?: { imagen: MediaDoc | number | string }[] | null

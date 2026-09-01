@@ -40,6 +40,11 @@ export const Institucional: GlobalConfig = {
           descripcion:
             'Cumplimos la normativa vigente para transporte vertical, en conjunto con proveedores especializados.',
         },
+        {
+          titulo: 'Asesoramiento desde el anteproyecto',
+          descripcion:
+            'Asesoramos, diseñamos y proyectamos junto al equipo de obra desde las primeras etapas, para que el ascensor o montacargas se integre bien al proyecto.',
+        },
       ],
     },
   ],

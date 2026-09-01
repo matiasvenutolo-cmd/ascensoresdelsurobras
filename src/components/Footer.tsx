@@ -40,15 +40,18 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           <div>
             <h4>Secciones</h4>
             <Link href="/nosotros">Nosotros</Link>
+            <Link href="/servicios">Servicios</Link>
             <Link href="/productos">Productos</Link>
-            <Link href="/trabajos">Trabajos realizados</Link>
-            <Link href="/certificaciones">Certificaciones</Link>
+            <Link href="/trabajos">Proyectos</Link>
+            <Link href="/certificaciones">Normativa</Link>
           </div>
           <div>
             <h4>Contacto</h4>
             {settings.direccion && <p>{settings.direccion}</p>}
             {settings.telefono && <p>{settings.telefono}</p>}
             {settings.email && <p>{settings.email}</p>}
+            <Link href="/faq">Preguntas frecuentes</Link>
+            <Link href="/privacidad">Política de privacidad</Link>
           </div>
         </div>
         <div className="bot">

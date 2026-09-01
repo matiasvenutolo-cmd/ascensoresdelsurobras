@@ -3,6 +3,7 @@ import { getPayload } from '@/lib/getPayload'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
+import { CotizacionForm } from '@/components/CotizacionForm'
 import { MailIcon, PhoneIcon, PinIcon, WhatsappIcon } from '@/components/icons'
 import type { SiteSettings } from '@/lib/types'
 
@@ -26,11 +27,17 @@ export default async function ContactoPage() {
         <div className="wrap">
           <span className="kick">Contacto</span>
           <h1>Contanos sobre tu obra</h1>
-          <p>Escribinos y te asesoramos sobre el equipo de transporte vertical que necesitás.</p>
+          <p>Completá el formulario con los datos de tu proyecto y te respondemos con una cotización.</p>
         </div>
       </section>
 
       <section>
+        <div className="wrap" style={{ maxWidth: 760 }}>
+          <CotizacionForm />
+        </div>
+      </section>
+
+      <section style={{ background: 'var(--wash)' }}>
         <div className="wrap contact-grid">
           <div className="contact-info">
             {s.direccion && (

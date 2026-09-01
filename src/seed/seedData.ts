@@ -76,6 +76,10 @@ type TrabajoSeed = {
   equipos: EquipoSeed[]
   folder: string
   observaciones?: string
+  // Solo se completa cuando el tipo de edificio es inequívoco por el nombre/
+  // dirección ya conocido (ej. "Cancillería" = corporativo/gobierno). El
+  // resto queda sin clasificar para que lo complete el cliente en el admin.
+  tipoEdificio?: string
 }
 
 export const TRABAJOS: TrabajoSeed[] = [
@@ -85,6 +89,7 @@ export const TRABAJOS: TrabajoSeed[] = [
     direccion: 'Esmeralda N° 1212',
     localidad: 'Capital Federal',
     destacada: true,
+    tipoEdificio: 'corporativo',
     equipos: [
       {
         resumen: 'Instalación de un ascensor',
@@ -220,6 +225,7 @@ export const TRABAJOS: TrabajoSeed[] = [
       },
     ],
     folder: path.join(FOTOS_DIR, 'Electromecánicos', 'FAMIQ - Av. San Martín Nº 4747'),
+    tipoEdificio: 'industrial',
   },
   {
     categoriaSlug: 'ascensores-electromecanicos',
@@ -227,6 +233,7 @@ export const TRABAJOS: TrabajoSeed[] = [
     direccion: 'Ruta 8 KM 36,50 (Panamericana Ramal Pilar)',
     localidad: 'Tortuguitas',
     destacada: true,
+    tipoEdificio: 'industrial',
     equipos: [
       {
         resumen: 'Instalación de dos ascensores en batería (N° 1 y 2)',
@@ -303,6 +310,7 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
         direccion: t.direccion,
         localidad: t.localidad,
         categoria: categoriaId ? [categoriaId] : [],
+        tipoEdificio: t.tipoEdificio,
         destacada: Boolean(t.destacada),
         equipos: t.equipos,
         galeria,
@@ -311,6 +319,17 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
       },
     })
     log(`  creado: ${t.titulo} (${fotos.length} fotos)`)
+  }
+
+  log('Completando tipo de edificio en trabajos ya existentes…')
+  for (const t of TRABAJOS) {
+    if (!t.tipoEdificio) continue
+    const existing = await payload.find({ collection: 'trabajos', where: { titulo: { equals: t.titulo } }, limit: 1 })
+    const doc = existing.docs[0] as unknown as { id?: number | string; tipoEdificio?: string } | undefined
+    if (doc?.id && !doc.tipoEdificio) {
+      await payload.update({ collection: 'trabajos', id: doc.id as string, data: { tipoEdificio: t.tipoEdificio } })
+      log(`  tipoEdificio actualizado: ${t.titulo} → ${t.tipoEdificio}`)
+    }
   }
 
   log('Asignando foto de portada a las categorías con trabajos…')
@@ -339,6 +358,38 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
       telefono: '11-3273-6626',
       email: 'obras@ascensoresdelsur.com.ar',
       direccion: 'Hernandarias N° 3161, Lanús Oeste, Prov. de Buenos Aires',
+    },
+  })
+
+  // El defaultValue de `pilares` en Institucional.ts solo se aplica la
+  // primera vez que se crea el documento del global. Como ya existe en
+  // producción con los 3 pilares originales, lo actualizamos acá a mano
+  // para sumar el 4°.
+  await payload.updateGlobal({
+    slug: 'institucional',
+    data: {
+      pilares: [
+        {
+          titulo: 'Calidad',
+          descripcion:
+            'Más de 30 años de trayectoria en instalación de ascensores y montacargas, con un plantel técnico especializado.',
+        },
+        {
+          titulo: 'Seguridad',
+          descripcion:
+            'Priorizamos la seguridad de personas y edificios en cada obra, trabajando con componentes certificados.',
+        },
+        {
+          titulo: 'Normativa',
+          descripcion:
+            'Cumplimos la normativa vigente para transporte vertical, en conjunto con proveedores especializados.',
+        },
+        {
+          titulo: 'Asesoramiento desde el anteproyecto',
+          descripcion:
+            'Asesoramos, diseñamos y proyectamos junto al equipo de obra desde las primeras etapas, para que el ascensor o montacargas se integre bien al proyecto.',
+        },
+      ],
     },
   })
 

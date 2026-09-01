@@ -247,12 +247,48 @@ header:not(.scrolled) .links a:hover {
 header:not(.scrolled) .menu-btn {
   color: #fff;
 }
+.nav-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--ink);
+  transition: background 0.15s ease;
+}
+header:not(.scrolled) .nav-icon-btn {
+  color: #fff;
+}
+.nav-icon-btn:hover {
+  background: var(--wash);
+}
+header:not(.scrolled) .nav-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.nav-cta {
+  margin-left: 4px;
+}
 @media (max-width: 920px) {
   .links {
     display: none;
   }
   .menu-btn {
     display: block !important;
+  }
+}
+@media (max-width: 640px) {
+  .nav-icon-btn {
+    display: none;
+  }
+  .nav-cta {
+    padding: 9px 14px;
+    font-size: 13px;
   }
 }
 
@@ -1087,6 +1123,107 @@ footer .bot {
 .whatsapp-float:hover {
   transform: scale(1.06);
 }
+
+/* formulario de cotización */
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.form-row-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: #fff;
+  transition: border-color 0.15s ease;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.form-field textarea {
+  resize: vertical;
+}
+.form-error {
+  color: #c0392b;
+  font-size: 13.5px;
+}
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* faq */
+.faq-list {
+  border-top: 1px solid var(--border);
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+}
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15.5px;
+  color: var(--ink);
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::before {
+  content: '+';
+  display: inline-block;
+  width: 1.2em;
+  color: var(--blue);
+  font-weight: 700;
+}
+.faq-item[open] summary::before {
+  content: '−';
+}
+.faq-item p {
+  margin: 12px 0 0 1.2em;
+  color: var(--slate);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
 @media (max-width: 760px) {
   footer .cols {
     grid-template-columns: 1fr;

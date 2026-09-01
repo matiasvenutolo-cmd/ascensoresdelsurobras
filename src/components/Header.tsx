@@ -5,17 +5,19 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Isotipo } from './Isotipo'
 import { MobileMenu } from './MobileMenu'
+import { PhoneIcon, WhatsappIcon } from './icons'
 import type { SiteSettings } from '@/lib/types'
 
 const NAV = [
   { href: '/nosotros', label: 'Nosotros' },
+  { href: '/servicios', label: 'Servicios' },
   { href: '/productos', label: 'Productos' },
-  { href: '/trabajos', label: 'Trabajos realizados' },
-  { href: '/certificaciones', label: 'Certificaciones' },
+  { href: '/trabajos', label: 'Proyectos' },
+  { href: '/certificaciones', label: 'Normativa' },
   { href: '/contacto', label: 'Contacto' },
 ]
 
-export function Header({}: { settings: SiteSettings }) {
+export function Header({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname()
   const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
@@ -44,6 +46,27 @@ export function Header({}: { settings: SiteSettings }) {
               </Link>
             ))}
           </nav>
+          <div className="nav-contact">
+            {settings.whatsapp && (
+              <a
+                href={`https://wa.me/${settings.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-icon-btn"
+                aria-label="WhatsApp"
+              >
+                <WhatsappIcon size={18} />
+              </a>
+            )}
+            {settings.telefono && (
+              <a href={`tel:${settings.telefono.replace(/[^0-9+]/g, '')}`} className="nav-icon-btn" aria-label="Llamar">
+                <PhoneIcon size={16} />
+              </a>
+            )}
+            <Link href="/contacto" className="btn btn-primary btn-sm nav-cta">
+              Solicitar presupuesto
+            </Link>
+          </div>
           <MobileMenu items={NAV} />
         </div>
       </div>
