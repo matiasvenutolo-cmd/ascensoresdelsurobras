@@ -6,6 +6,9 @@ import path from 'path'
 import type { Payload } from 'payload'
 
 export const FOTOS_DIR = '/Users/matiasvenutolo/Downloads/AdsurObras/Página Web/Fotos'
+// Segunda tanda de fotos que mandó el cliente, con 9 obras reales más
+// (incluye los primeros ejemplos reales de Monta Vehículos).
+export const FOTOS_NUEVAS_DIR = '/Users/matiasvenutolo/Downloads/Fotos NUEVAS'
 
 type CategoriaSeed = {
   slug: string
@@ -68,13 +71,17 @@ type EquipoSeed = {
 }
 
 type TrabajoSeed = {
-  categoriaSlug: string
+  // Array cuando la obra combina más de un tipo de equipo (ej. un edificio
+  // con ascensor + monta vehículo instalados a la vez).
+  categoriaSlug: string | string[]
   titulo: string
   direccion: string
   localidad: string
   destacada?: boolean
   equipos: EquipoSeed[]
-  folder: string
+  // Array cuando las fotos de una misma obra quedaron repartidas en más de
+  // una carpeta de categoría (mismo caso que categoriaSlug arriba).
+  folder: string | string[]
   observaciones?: string
   // Solo se completa cuando el tipo de edificio es inequívoco por el nombre/
   // dirección ya conocido (ej. "Cancillería" = corporativo/gobierno). El
@@ -252,6 +259,178 @@ export const TRABAJOS: TrabajoSeed[] = [
     ],
     folder: path.join(FOTOS_DIR, 'Electromecánicos', 'SKF Tortuguitas'),
   },
+  // --- segunda tanda ("Fotos NUEVAS") ---
+  {
+    categoriaSlug: ['ascensores-electromecanicos', 'monta-vehiculos'],
+    titulo: '2 de Mayo N° 2831',
+    direccion: '2 de Mayo N° 2831',
+    localidad: 'Lanús Oeste',
+    destacada: true,
+    equipos: [
+      {
+        resumen: 'Instalación de dos ascensores',
+        paradas: 13,
+        cargaUtilKg: 600,
+        velocidadMpm: 60,
+        detalle: 'Terminación de cabina y puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+      },
+      {
+        resumen: 'Instalación de un monta vehículo',
+        paradas: 2,
+        cargaUtilKg: 2500,
+        velocidadMpm: 10,
+        detalle: '3 accesos. Pistón central enterrado. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+      },
+    ],
+    folder: [
+      path.join(FOTOS_NUEVAS_DIR, 'Electromecánicos', '2 de Mayo N° 2831'),
+      path.join(FOTOS_NUEVAS_DIR, 'Monta Vehículos', '2 de Mayo N° 2831'),
+    ],
+  },
+  {
+    categoriaSlug: 'ascensores-electromecanicos',
+    titulo: 'Llavallol N° 361',
+    direccion: 'Llavallol N° 361',
+    localidad: 'Lanús Oeste',
+    equipos: [
+      {
+        resumen: 'Instalación de dos ascensores',
+        paradas: 12,
+        cargaUtilKg: 450,
+        velocidadMpm: 60,
+        detalle: 'Terminación de cabina y puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Electromecánicos', 'Llavallol N° 361'),
+  },
+  {
+    categoriaSlug: 'ascensores-electromecanicos',
+    titulo: 'Moreno N° 335',
+    direccion: 'Moreno N° 335',
+    localidad: 'Lanús Oeste',
+    equipos: [
+      {
+        resumen: 'Instalación de un ascensor',
+        paradas: 14,
+        cargaUtilKg: 450,
+        velocidadMpm: 60,
+        detalle: 'Terminación de cabina con frente y detalles en acero inoxidable. Puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Electromecánicos', 'Moreno N° 335'),
+  },
+  {
+    categoriaSlug: ['ascensores-electromecanicos', 'monta-vehiculos'],
+    titulo: 'Riobamba N° 147',
+    direccion: 'Riobamba N° 147',
+    localidad: 'Lanús Oeste',
+    equipos: [
+      {
+        resumen: 'Instalación de un ascensor',
+        paradas: 11,
+        cargaUtilKg: 600,
+        velocidadMpm: 60,
+        detalle: 'Terminación de cabina con frente y detalles en acero inoxidable. Puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+      },
+      {
+        resumen: 'Instalación de un monta vehículo',
+        paradas: 2,
+        cargaUtilKg: 2500,
+        velocidadMpm: 10,
+        detalle: '3 accesos. Doble pistón lateral, relación 1:1. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+      },
+    ],
+    folder: [
+      path.join(FOTOS_NUEVAS_DIR, 'Electromecánicos', 'Riobamba N° 147'),
+      path.join(FOTOS_NUEVAS_DIR, 'Monta Vehículos', 'Riobamba N° 147'),
+    ],
+  },
+  {
+    categoriaSlug: 'ascensores-hidraulicos',
+    titulo: 'Ayacucho N° 873 — Coelpla Sudamericana',
+    direccion: 'Ayacucho N° 873',
+    localidad: 'Lanús Este',
+    tipoEdificio: 'corporativo',
+    equipos: [
+      {
+        resumen: 'Instalación de un ascensor',
+        paradas: 2,
+        cargaUtilKg: 450,
+        velocidadMpm: 30,
+        detalle: 'Terminación de cabina, frente y detalles en acero inoxidable. Puertas de 2 hojas acristaladas en acero inoxidable en todos los pisos. Botonera de cabina táctil.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Hidráulico', 'Ayacucho N° 873 - Lanús - Coelpla Sudamericana'),
+  },
+  {
+    categoriaSlug: 'monta-camillero',
+    titulo: 'Coronel Delia N° 1551 — Sala Salud',
+    direccion: 'Coronel Delia N° 1551',
+    localidad: 'Lanús Oeste',
+    destacada: true,
+    tipoEdificio: 'salud',
+    equipos: [
+      {
+        resumen: 'Instalación de un ascensor tipo camillero',
+        paradas: 2,
+        cargaUtilKg: 900,
+        velocidadMpm: 30,
+        detalle: 'Terminación de cabina y puertas de 2 hojas en acero inoxidable. Botonera de cabina estándar inoxidable.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Monta Camillero', 'Coronel Delia N° 1551 - Sala Salud - Lanús'),
+  },
+  {
+    categoriaSlug: 'monta-vehiculos',
+    titulo: 'Gobernador Irigoyen N° 122',
+    direccion: 'Gobernador Irigoyen N° 122',
+    localidad: 'Lanús Oeste',
+    destacada: true,
+    equipos: [
+      {
+        resumen: 'Instalación de un monta vehículo',
+        paradas: 2,
+        cargaUtilKg: 2500,
+        velocidadMpm: 10,
+        detalle: '3 accesos. Pistón central enterrado. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Monta Vehículos', 'Gobernador Irigoyen N° 122'),
+  },
+  {
+    categoriaSlug: 'monta-vehiculos',
+    titulo: 'Margarita Weild N° 1409',
+    direccion: 'Margarita Weild N° 1409',
+    localidad: 'Lanús Este',
+    equipos: [
+      {
+        resumen: 'Instalación de un monta vehículo',
+        paradas: 2,
+        cargaUtilKg: 2500,
+        velocidadMpm: 10,
+        detalle: '3 accesos. Doble pistón lateral, relación 1:1. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Monta Vehículos', 'Margarita Weild N° 1409'),
+  },
+  {
+    categoriaSlug: 'montacargas',
+    titulo: "O'Higgins N° 365 — ADSUR S.A.",
+    direccion: "O'Higgins N° 365",
+    localidad: 'Lanús Este',
+    destacada: true,
+    tipoEdificio: 'industrial',
+    equipos: [
+      {
+        resumen: 'Instalación de un ascensor',
+        paradas: 2,
+        cargaUtilKg: 1500,
+        velocidadMpm: 30,
+        detalle: 'Terminación de cabina y puertas de 6 hojas en epoxi. Doble botonera de cabina aplicada inoxidable. Piso de chapa estampada tipo semilla de melón.',
+      },
+    ],
+    folder: path.join(FOTOS_NUEVAS_DIR, 'Monta cargas', "O Higgins N° 365 - Lanús - ADSUR S.A"),
+  },
 ]
 
 function listPhotos(folder: string): string[] {
@@ -290,7 +469,8 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
       continue
     }
 
-    const fotos = listPhotos(t.folder)
+    const folders = Array.isArray(t.folder) ? t.folder : [t.folder]
+    const fotos = folders.flatMap((f) => listPhotos(f))
     const galeria: { imagen: number | string }[] = []
     for (const [i, fotoPath] of fotos.entries()) {
       const media = await payload.create({
@@ -301,7 +481,8 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
       galeria.push({ imagen: media.id })
     }
 
-    const categoriaId = categoriaIds.get(t.categoriaSlug)
+    const slugs = Array.isArray(t.categoriaSlug) ? t.categoriaSlug : [t.categoriaSlug]
+    const categoriaIdsForTrabajo = slugs.map((slug) => categoriaIds.get(slug)).filter(Boolean)
 
     await payload.create({
       collection: 'trabajos',
@@ -309,7 +490,7 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
         titulo: t.titulo,
         direccion: t.direccion,
         localidad: t.localidad,
-        categoria: categoriaId ? [categoriaId] : [],
+        categoria: categoriaIdsForTrabajo,
         tipoEdificio: t.tipoEdificio,
         destacada: Boolean(t.destacada),
         equipos: t.equipos,

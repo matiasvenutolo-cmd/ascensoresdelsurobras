@@ -4,6 +4,7 @@ import { getPayload } from '@/lib/getPayload'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
+import { HeroVideo } from '@/components/HeroVideo'
 import { Stats } from '@/components/Stats'
 import { CategoriaCard } from '@/components/CategoriaCard'
 import { TrabajoCard } from '@/components/TrabajoCard'
@@ -44,15 +45,20 @@ export default async function Home() {
     <>
       <Header settings={s} />
 
-      <section className="hero" style={heroImg ? ({ '--img': `url(${heroImg})` } as CSSProperties) : undefined}>
+      <section className="hero">
+        <HeroVideo />
         <div className="wrap">
-          <span className="kick">ADS · Ascensores del Sur — Instalaciones, Obras y Proyectos</span>
-          <h1>Ascensores y montacargas a medida, instalados por especialistas.</h1>
-          <p>
+          <span className="kick hero-in" style={{ animationDelay: '0.1s' }}>
+            ADS · Ascensores del Sur — Instalaciones, Obras y Proyectos
+          </span>
+          <h1 className="hero-in" style={{ animationDelay: '0.2s' }}>
+            Ascensores y montacargas a medida, instalados por especialistas.
+          </h1>
+          <p className="hero-in" style={{ animationDelay: '0.35s' }}>
             Asesoramos, diseñamos, proyectamos, fabricamos e instalamos soluciones de transporte vertical para
             obras y edificios en todo el país.
           </p>
-          <div className="hero-cta">
+          <div className="hero-cta hero-in" style={{ animationDelay: '0.5s' }}>
             <Link href="/trabajos" className="btn btn-primary">
               Ver trabajos realizados
             </Link>
