@@ -63,5 +63,8 @@ export type SiteSettings = {
 
 export type Institucional = {
   textoPrincipal?: string | null
+  vision?: string | null
+  mision?: string | null
+  valores?: { titulo: string; descripcion?: string | null }[] | null
   pilares?: { titulo: string; descripcion?: string | null }[] | null
 }

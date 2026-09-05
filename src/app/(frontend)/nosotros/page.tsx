@@ -49,6 +49,41 @@ export default async function NosotrosPage() {
         </div>
       </div>
 
+      {(inst.vision || inst.mision) && (
+        <section style={{ background: 'var(--wash)' }}>
+          <div className="wrap">
+            <div className="shead">
+              <span className="kick">Misión y visión</span>
+              <h2 className="st">Hacia dónde vamos</h2>
+            </div>
+            <div className="mv-grid">
+              {inst.mision && (
+                <div className="mv-card">
+                  <h3>Misión</h3>
+                  <p>{inst.mision}</p>
+                </div>
+              )}
+              {inst.vision && (
+                <div className="mv-card">
+                  <h3>Visión</h3>
+                  <p>{inst.vision}</p>
+                </div>
+              )}
+            </div>
+            {(inst.valores?.length ?? 0) > 0 && (
+              <div className="value-grid" style={{ marginTop: 36 }}>
+                {inst.valores!.map((v, i) => (
+                  <div className="value-card" key={i}>
+                    <h3>{v.titulo}</h3>
+                    <p>{v.descripcion}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       <section>
         <div className="wrap">
           <div className="shead">

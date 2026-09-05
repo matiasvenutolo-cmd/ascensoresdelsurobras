@@ -537,6 +537,36 @@ h2.st {
 }
 
 /* propuesta de valor (home) */
+.mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.mv-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 26px 28px;
+}
+.mv-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  margin: 0 0 10px;
+}
+.mv-card p {
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0;
+}
+@media (max-width: 720px) {
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .value-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

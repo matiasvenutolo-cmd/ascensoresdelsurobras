@@ -542,13 +542,31 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
     },
   })
 
-  // El defaultValue de `pilares` en Institucional.ts solo se aplica la
-  // primera vez que se crea el documento del global. Como ya existe en
-  // producción con los 3 pilares originales, lo actualizamos acá a mano
-  // para sumar el 4°.
+  // El defaultValue de Institucional.ts solo se aplica la primera vez que se
+  // crea el documento del global. Como ya existe en producción, lo
+  // actualizamos acá a mano para sumar el 4° pilar y el placeholder de
+  // Misión/Visión/Valores (ver ⚠ en Institucional.ts — es el de ADSUR,
+  // pendiente de reemplazar por el propio de esta unidad).
   await payload.updateGlobal({
     slug: 'institucional',
     data: {
+      vision:
+        'Ser la empresa Nº 1 en la producción de máquinas de tracción para ascensores en la ciudad de Buenos Aires, extendiendo este liderazgo a todo el mercado interno de nuestro país y procurando avanzar al exterior.',
+      mision:
+        'Brindar a los clientes la oportunidad de obtener una máquina de tracción para ascensores de altísima calidad con precios competitivos a nivel internacional, junto a un servicio personalizado para solucionar cualquier inconveniente que pueda surgir.',
+      valores: [
+        { titulo: 'Integridad', descripcion: 'Implica tener una conducta responsable, transparente y honesta.' },
+        {
+          titulo: 'Confianza',
+          descripcion:
+            'Basar las relaciones con los clientes en la consideración personal y profesional, brindándoles respaldo, flexibilidad y seguridad.',
+        },
+        { titulo: 'Innovación', descripcion: 'Buscar el progreso continuo, en lo referido a lo tecnológico y a su gente.' },
+        {
+          titulo: 'Calidad',
+          descripcion: 'Brindar siempre el mejor producto, disponiendo todos los esfuerzos del staff de la empresa para ese fin.',
+        },
+      ],
       pilares: [
         {
           titulo: 'Calidad',
