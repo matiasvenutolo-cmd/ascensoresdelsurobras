@@ -1,13 +1,19 @@
 'use client'
 
 import { useActionState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { submitCotizacion, type CotizacionFormState } from '@/app/(frontend)/contacto/actions'
 import { BUILDING_TYPE_OPTIONS } from '@/lib/buildingTypes'
 
 const initialState: CotizacionFormState = { ok: false }
+const ROL_VALIDOS = ['constructora', 'arquitecto', 'desarrollador', 'particular', 'otro']
 
 export function CotizacionForm() {
   const [state, formAction, pending] = useActionState(submitCotizacion, initialState)
+  // Si venís desde un link tipo /contacto?rol=arquitecto (ej. desde /servicios),
+  // el select arranca con ese rol ya elegido.
+  const rolParam = useSearchParams().get('rol')
+  const rolInicial = rolParam && ROL_VALIDOS.includes(rolParam) ? rolParam : ''
 
   if (state.ok) {
     return (
@@ -40,7 +46,7 @@ export function CotizacionForm() {
       <div className="form-row">
         <div className="form-field">
           <label htmlFor="rol">Rol</label>
-          <select id="rol" name="rol" defaultValue="">
+          <select id="rol" name="rol" defaultValue={rolInicial}>
             <option value="">Elegir...</option>
             <option value="constructora">Constructora</option>
             <option value="arquitecto">Arquitecto/a</option>

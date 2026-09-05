@@ -1,10 +1,13 @@
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
 import { getPayload } from '@/lib/getPayload'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
-import type { SiteSettings } from '@/lib/types'
+import { primeraFoto } from '@/lib/trabajoHelpers'
+import { mediaUrl } from '@/lib/mediaUrl'
+import type { SiteSettings, Trabajo } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -43,6 +46,7 @@ const ETAPAS = [
 
 const AUDIENCIAS = [
   {
+    slug: 'constructora',
     titulo: 'Constructoras y desarrolladoras',
     items: [
       'Cumplimiento de plazos que no retrasa la obra general.',
@@ -50,8 +54,13 @@ const AUDIENCIAS = [
       'Experiencia en obras de distinta envergadura.',
       'Respaldo documental completo para la habilitación.',
     ],
+    cta: 'Coordiná el cronograma con nosotros',
+    // Señal de escala: instalaciones de más de un equipo en la misma obra
+    // (baterías de ascensores, ascensor + monta vehículo).
+    filtro: (t: Trabajo) => (t.equipos?.length ?? 0) > 1,
   },
   {
+    slug: 'arquitecto',
     titulo: 'Arquitectos y estudios',
     items: [
       'Asesoramiento técnico que respeta el diseño arquitectónico.',
@@ -59,21 +68,47 @@ const AUDIENCIAS = [
       'Soluciones para huecos no estándar.',
       'Información técnica clara para incorporar al proyecto.',
     ],
+    cta: 'Pedí asesoramiento técnico',
+    filtro: null as ((t: Trabajo) => boolean) | null,
   },
   {
+    slug: 'desarrollador',
     titulo: 'Empresas y corporativos',
     items: [
       'Equipos de mayor capacidad y tráfico para edificios de uso intensivo.',
       'Diseño de cabina acorde a la imagen del edificio.',
       'Cumplimiento de normas de accesibilidad.',
     ],
+    cta: 'Cotizá tu proyecto corporativo',
+    filtro: (t: Trabajo) => t.tipoEdificio === 'corporativo' || t.tipoEdificio === 'industrial',
   },
 ]
 
 export default async function ServiciosPage() {
   const payload = await getPayload()
-  const settings = await payload.findGlobal({ slug: 'site-settings' })
+  const [settings, trabajosRes] = await Promise.all([
+    payload.findGlobal({ slug: 'site-settings' }),
+    payload.find({ collection: 'trabajos', limit: 300, depth: 1, overrideAccess: false }),
+  ])
   const s = settings as SiteSettings
+  const trabajos = trabajosRes.docs as unknown as Trabajo[]
+
+  // Reparte ejemplos reales entre audiencias sin repetir el mismo trabajo dos
+  // veces: primero se asignan las audiencias con filtro específico
+  // (constructoras, corporativos); lo que sobra de destacados va para
+  // arquitectos, que no tiene una señal propia para filtrar por.
+  const usados = new Set<string | number>()
+  const ejemplosPorSlug = new Map<string, Trabajo[]>()
+  const conFiltro = AUDIENCIAS.filter((a) => a.filtro)
+  const sinFiltro = AUDIENCIAS.filter((a) => !a.filtro)
+  for (const a of [...conFiltro, ...sinFiltro]) {
+    const candidatos = a.filtro
+      ? trabajos.filter((t) => a.filtro!(t) && !usados.has(t.id))
+      : trabajos.filter((t) => t.destacada && !usados.has(t.id))
+    const elegidos = candidatos.slice(0, 2)
+    elegidos.forEach((t) => usados.add(t.id))
+    ejemplosPorSlug.set(a.slug, elegidos)
+  }
 
   return (
     <>
@@ -111,16 +146,40 @@ export default async function ServiciosPage() {
             <h2 className="st">Nos adaptamos al rol de cada interlocutor en la obra</h2>
           </div>
           <div className="audience-grid">
-            {AUDIENCIAS.map((a) => (
-              <div className="audience-card" key={a.titulo}>
-                <h3>{a.titulo}</h3>
-                <ul>
-                  {a.items.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {AUDIENCIAS.map((a) => {
+              const ejemplos = ejemplosPorSlug.get(a.slug) || []
+              return (
+                <div className="audience-card" key={a.slug}>
+                  <h3>{a.titulo}</h3>
+                  <ul>
+                    {a.items.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                  {ejemplos.length > 0 && (
+                    <div className="audience-examples">
+                      {ejemplos.map((t) => {
+                        const img = mediaUrl(primeraFoto(t), 'thumbnail')
+                        return (
+                          <Link
+                            href={`/trabajos/${t.slug}`}
+                            key={t.id}
+                            className="audience-example"
+                            style={img ? ({ '--img': `url(${img})` } as CSSProperties) : undefined}
+                          >
+                            <span className="ae-thumb" />
+                            <span className="ae-title">{t.titulo}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+                  <Link href={`/contacto?rol=${a.slug}`} className="btn btn-out btn-sm audience-cta">
+                    {a.cta}
+                  </Link>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
