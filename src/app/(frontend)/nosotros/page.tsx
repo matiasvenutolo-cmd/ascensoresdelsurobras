@@ -21,13 +21,16 @@ export default async function NosotrosPage() {
   const [settings, institucional, trabajosRes] = await Promise.all([
     payload.findGlobal({ slug: 'site-settings' }),
     payload.findGlobal({ slug: 'institucional' }),
-    payload.find({ collection: 'trabajos', limit: 6, depth: 1, overrideAccess: false }),
+    payload.find({ collection: 'trabajos', limit: 300, depth: 1, overrideAccess: false }),
   ])
 
   const s = settings as SiteSettings
   const inst = institucional as InstitucionalType
   const trabajos = trabajosRes.docs as unknown as Trabajo[]
   const heroImg = trabajos.map((t) => mediaUrl(primeraFoto(t), 'hero')).find(Boolean)
+  // Cobertura geográfica real, derivada de las localidades de los trabajos ya cargados
+  // (no una lista aparte a mantener a mano).
+  const localidades = Array.from(new Set(trabajos.map((t) => t.localidad).filter(Boolean))) as string[]
 
   return (
     <>
@@ -82,6 +85,25 @@ export default async function NosotrosPage() {
           </div>
         </div>
       </section>
+
+      {localidades.length > 0 && (
+        <section>
+          <div className="wrap">
+            <div className="shead">
+              <span className="kick">Cobertura</span>
+              <h2 className="st">Dónde ya instalamos</h2>
+              <p>Localidades donde tenemos obras realizadas.</p>
+            </div>
+            <div className="tag-row">
+              {localidades.map((loc) => (
+                <span className="tag" key={loc}>
+                  {loc}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer settings={s} />
       <WhatsappFloat settings={s} />

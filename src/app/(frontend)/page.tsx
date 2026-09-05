@@ -10,7 +10,33 @@ import { CategoriaCard } from '@/components/CategoriaCard'
 import { TrabajoCard } from '@/components/TrabajoCard'
 import { primeraFoto } from '@/lib/trabajoHelpers'
 import { mediaUrl } from '@/lib/mediaUrl'
+import { TargetIcon, ClockIcon, CertIcon, LightbulbIcon } from '@/components/icons'
 import type { Categoria, Institucional as InstitucionalType, SiteSettings, Trabajo } from '@/lib/types'
+
+const VALUE_PROPS = [
+  {
+    Icon: TargetIcon,
+    titulo: 'Especialización',
+    texto:
+      'No hacemos mantenimiento ni reparaciones. Nos dedicamos exclusivamente a instalar ascensores y montacargas nuevos en obras nuevas — esa especialización es nuestra ventaja.',
+  },
+  {
+    Icon: ClockIcon,
+    titulo: 'Cumplimiento de plazos',
+    texto:
+      'Sabemos que un ascensor atrasado frena toda la obra. Coordinamos con la dirección de obra para que nuestro cronograma se cumpla.',
+  },
+  {
+    Icon: CertIcon,
+    titulo: 'Normativa y seguridad',
+    texto: 'Cada instalación se hace conforme a la normativa vigente, para que tu obra no tenga problemas de habilitación por el ascensor.',
+  },
+  {
+    Icon: LightbulbIcon,
+    titulo: 'Asesoramiento desde el anteproyecto',
+    texto: 'Cuanto antes nos consultes, mejor va a ser el resultado técnico y económico de tu proyecto.',
+  },
+]
 
 export const dynamic = 'force-dynamic'
 
@@ -69,6 +95,34 @@ export default async function Home() {
         </div>
       </section>
 
+      <section>
+        <div className="wrap">
+          <div className="shead" style={{ marginBottom: 36 }}>
+            <span className="kick">Por qué elegirnos</span>
+            <h2 className="st">Lo que nos diferencia en una obra</h2>
+          </div>
+          <div className="value-grid">
+            {VALUE_PROPS.map((v, i) => (
+              <div className="value-card" key={i}>
+                <span className="vi">
+                  <v.Icon size={22} />
+                </span>
+                <h3>{v.titulo}</h3>
+                <p>{v.texto}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <div className="shead ctr">
+            <span className="kick">Calidad comprobable</span>
+            <h2 className="st">No lo decimos nosotros, lo dicen los números</h2>
+          </div>
+        </div>
+      </section>
       <Stats
         aniosTrayectoria={s.aniosTrayectoria ?? 30}
         totalTrabajos={trabajosRes.totalDocs}
@@ -148,6 +202,16 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <div className="closing-cta">
+        <div className="wrap">
+          <h2>¿Tenés un proyecto de obra en marcha?</h2>
+          <p>Contanos en qué etapa está y te asesoramos sobre el equipo de transporte vertical que necesitás.</p>
+          <Link href="/contacto" className="btn btn-out-light">
+            Solicitar asesoramiento
+          </Link>
+        </div>
+      </div>
 
       <Footer settings={s} />
       <WhatsappFloat settings={s} />

@@ -41,6 +41,35 @@ const ETAPAS = [
   },
 ]
 
+const AUDIENCIAS = [
+  {
+    titulo: 'Constructoras y desarrolladoras',
+    items: [
+      'Cumplimiento de plazos que no retrasa la obra general.',
+      'Coordinación fluida con otros gremios en obra.',
+      'Experiencia en obras de distinta envergadura.',
+      'Respaldo documental completo para la habilitación.',
+    ],
+  },
+  {
+    titulo: 'Arquitectos y estudios',
+    items: [
+      'Asesoramiento técnico que respeta el diseño arquitectónico.',
+      'Flexibilidad en diseño de cabina y terminaciones.',
+      'Soluciones para huecos no estándar.',
+      'Información técnica clara para incorporar al proyecto.',
+    ],
+  },
+  {
+    titulo: 'Empresas y corporativos',
+    items: [
+      'Equipos de mayor capacidad y tráfico para edificios de uso intensivo.',
+      'Diseño de cabina acorde a la imagen del edificio.',
+      'Cumplimiento de normas de accesibilidad.',
+    ],
+  },
+]
+
 export default async function ServiciosPage() {
   const payload = await getPayload()
   const settings = await payload.findGlobal({ slug: 'site-settings' })
@@ -76,6 +105,27 @@ export default async function ServiciosPage() {
       </section>
 
       <section style={{ background: 'var(--wash)' }}>
+        <div className="wrap">
+          <div className="shead">
+            <span className="kick">Para quién trabajamos</span>
+            <h2 className="st">Nos adaptamos al rol de cada interlocutor en la obra</h2>
+          </div>
+          <div className="audience-grid">
+            {AUDIENCIAS.map((a) => (
+              <div className="audience-card" key={a.titulo}>
+                <h3>{a.titulo}</h3>
+                <ul>
+                  {a.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section>
         <div className="wrap">
           <div className="cat-head">
             <div className="shead" style={{ marginBottom: 0 }}>
