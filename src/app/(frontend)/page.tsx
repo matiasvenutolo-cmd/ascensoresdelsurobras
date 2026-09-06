@@ -5,9 +5,8 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
 import { HeroVideo } from '@/components/HeroVideo'
-import { Stats } from '@/components/Stats'
-import { CategoriaCard } from '@/components/CategoriaCard'
-import { TrabajoCard } from '@/components/TrabajoCard'
+import { ProductShowcase } from '@/components/ProductShowcase'
+import { TrabajosCarousel } from '@/components/TrabajosCarousel'
 import { primeraFoto } from '@/lib/trabajoHelpers'
 import { mediaUrl } from '@/lib/mediaUrl'
 import { TargetIcon, ClockIcon, CertIcon, LightbulbIcon } from '@/components/icons'
@@ -17,19 +16,17 @@ const VALUE_PROPS = [
   {
     Icon: TargetIcon,
     titulo: 'Especialización',
-    texto:
-      'No hacemos mantenimiento ni reparaciones. Nos dedicamos exclusivamente a instalar ascensores y montacargas nuevos en obras nuevas — esa especialización es nuestra ventaja.',
+    texto: 'Solo instalamos ascensores y montacargas nuevos en obras nuevas — no hacemos mantenimiento ni reparaciones.',
   },
   {
     Icon: ClockIcon,
     titulo: 'Cumplimiento de plazos',
-    texto:
-      'Sabemos que un ascensor atrasado frena toda la obra. Coordinamos con la dirección de obra para que nuestro cronograma se cumpla.',
+    texto: 'Coordinamos con la dirección de obra para que nuestro cronograma se cumpla y no atrase el resto de la obra.',
   },
   {
     Icon: CertIcon,
     titulo: 'Normativa y seguridad',
-    texto: 'Cada instalación se hace conforme a la normativa vigente, para que tu obra no tenga problemas de habilitación por el ascensor.',
+    texto: 'Cada instalación se hace conforme a la normativa vigente, sin problemas de habilitación por el ascensor.',
   },
   {
     Icon: LightbulbIcon,
@@ -51,7 +48,7 @@ export default async function Home() {
     payload.find({
       collection: 'trabajos',
       where: { destacada: { equals: true } },
-      limit: 6,
+      limit: 8,
       depth: 1,
       overrideAccess: false,
     }),
@@ -61,11 +58,13 @@ export default async function Home() {
   const categorias = categoriasRes.docs as unknown as Categoria[]
   const destacados = (destacadosRes.docs as unknown as Trabajo[]).length > 0
     ? (destacadosRes.docs as unknown as Trabajo[])
-    : trabajos.slice(0, 3)
+    : trabajos.slice(0, 8)
 
   const heroImg = destacados.map((t) => mediaUrl(primeraFoto(t), 'hero')).find(Boolean)
+  const featureImg = destacados.map((t) => mediaUrl(primeraFoto(t), 'card')).find(Boolean)
   const s = settings as SiteSettings
   const inst = institucional as InstitucionalType
+  const localidades = Array.from(new Set(trabajos.map((t) => t.localidad).filter(Boolean))) as string[]
 
   return (
     <>
@@ -75,7 +74,7 @@ export default async function Home() {
         <HeroVideo />
         <div className="wrap">
           <span className="kick hero-in" style={{ animationDelay: '0.1s' }}>
-            ADS · Ascensores del Sur — Instalaciones, Obras y Proyectos
+            Instalaciones, Obras y Proyectos
           </span>
           <h1 className="hero-in" style={{ animationDelay: '0.2s' }}>
             Ascensores y montacargas a medida, instalados por especialistas.
@@ -97,111 +96,90 @@ export default async function Home() {
 
       <section>
         <div className="wrap">
-          <div className="shead" style={{ marginBottom: 36 }}>
-            <span className="kick">Por qué elegirnos</span>
-            <h2 className="st">Lo que nos diferencia en una obra</h2>
-          </div>
-          <div className="value-grid">
-            {VALUE_PROPS.map((v, i) => (
-              <div className="value-card" key={i}>
-                <span className="vi">
-                  <v.Icon size={22} />
-                </span>
-                <h3>{v.titulo}</h3>
-                <p>{v.texto}</p>
+          <div className="feature-split">
+            <div className="feature-split-text">
+              <div className="shead">
+                <span className="kick">Por qué elegirnos</span>
+                <h2 className="st">Lo que nos diferencia en una obra</h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ paddingBottom: 0 }}>
-        <div className="wrap">
-          <div className="shead ctr">
-            <span className="kick">Calidad comprobable</span>
-            <h2 className="st">No lo decimos nosotros, lo dicen los números</h2>
-          </div>
-        </div>
-      </section>
-      <Stats
-        aniosTrayectoria={s.aniosTrayectoria ?? 30}
-        totalTrabajos={trabajosRes.totalDocs}
-        categorias={categoriasRes.totalDocs}
-      />
-
-      <section>
-        <div className="wrap">
-          <div className="cat-head">
-            <div className="shead" style={{ marginBottom: 0 }}>
-              <span className="kick">Productos</span>
-              <h2 className="st">Soluciones de transporte vertical</h2>
+              <div className="feature-list">
+                {VALUE_PROPS.map((v, i) => (
+                  <div className="feature-list-item" key={i}>
+                    <span className="vi">
+                      <v.Icon size={19} />
+                    </span>
+                    <h3>{v.titulo}</h3>
+                  </div>
+                ))}
+              </div>
             </div>
-            <Link href="/productos" className="btn btn-out">
-              Ver todos los productos
-            </Link>
-          </div>
-          {categorias.length === 0 && (
-            <p style={{ color: 'var(--slate)' }}>Todavía no hay categorías cargadas. Se agregan desde el backoffice.</p>
-          )}
-          <div className="cat-grid">
-            {categorias.slice(0, 8).map((c) => (
-              <CategoriaCard categoria={c} key={c.id} />
-            ))}
+            <div
+              className="feature-split-img"
+              style={featureImg ? ({ '--img': `url(${featureImg})` } as CSSProperties) : undefined}
+            />
           </div>
         </div>
       </section>
 
       <section style={{ background: 'var(--wash)' }}>
         <div className="wrap">
-          <div className="cat-head">
-            <div className="shead" style={{ marginBottom: 0 }}>
-              <span className="kick">Trabajos realizados</span>
-              <h2 className="st">Obras instaladas por ADS</h2>
-            </div>
-            <Link href="/trabajos" className="btn btn-primary">
-              Ver todos los trabajos
-            </Link>
+          <div className="trayectoria-text">
+            <span className="kick">Trayectoria en múltiples soluciones</span>
+            <h2 className="st">No lo decimos nosotros, lo dicen los números</h2>
+            <p>{inst.textoPrincipal}</p>
           </div>
-          {destacados.length === 0 && (
-            <p style={{ color: 'var(--slate)' }}>Todavía no hay trabajos cargados. Se agregan desde el backoffice.</p>
-          )}
-          <div className="partner-grid">
-            {destacados.slice(0, 3).map((t) => (
-              <TrabajoCard trabajo={t} key={t.id} />
-            ))}
+          <div className="dir-stats" style={{ justifyContent: 'center' }}>
+            <div className="dir-stat-chip">
+              <b>{s.aniosTrayectoria ?? 30}+</b>
+              <span>años de trayectoria</span>
+            </div>
+            <div className="dir-stat-chip">
+              <b>{categoriasRes.totalDocs}</b>
+              <span>tipos de equipo</span>
+            </div>
+            <div className="dir-stat-chip">
+              <b>{localidades.length}</b>
+              <span>localidades con obras</span>
+            </div>
           </div>
         </div>
       </section>
-
-      <div
-        className="about-photo-panel"
-        style={heroImg ? ({ '--img': `url(${heroImg})` } as CSSProperties) : undefined}
-      >
-        <div className="wrap">
-          <span className="kick">Nosotros</span>
-          <h2 className="st">Más de {s.aniosTrayectoria ?? 30} años instalando transporte vertical.</h2>
-          <p>{inst.textoPrincipal}</p>
-          <div className="hero-cta" style={{ marginTop: 26 }}>
-            <Link href="/nosotros" className="btn btn-primary">
-              Conocé más
-            </Link>
-          </div>
-        </div>
-      </div>
 
       <section>
         <div className="wrap">
-          <div className="objlist">
-            {(inst.pilares || []).map((p, i) => (
-              <div className="objrow" key={i}>
-                <span className="num">{String(i + 1).padStart(2, '0')}</span>
-                <h3>{p.titulo}</h3>
-                <p>{p.descripcion}</p>
-              </div>
-            ))}
+          <div className="cat-head">
+            <div className="shead" style={{ marginBottom: 0 }}>
+              <span className="kick">Productos y servicios</span>
+              <h2 className="st">Toda la oferta de transporte vertical, un solo equipo</h2>
+            </div>
+            <Link href="/soluciones" className="btn btn-out">
+              Conocé nuestras soluciones
+            </Link>
           </div>
+          {categorias.length === 0 ? (
+            <p style={{ color: 'var(--slate)' }}>Todavía no hay categorías cargadas. Se agregan desde el backoffice.</p>
+          ) : (
+            <ProductShowcase categorias={categorias} />
+          )}
         </div>
       </section>
+
+      <section style={{ background: 'var(--wash)' }}>
+        {destacados.length === 0 ? (
+          <div className="wrap">
+            <p style={{ color: 'var(--slate)' }}>Todavía no hay trabajos cargados. Se agregan desde el backoffice.</p>
+          </div>
+        ) : (
+          <TrabajosCarousel trabajos={destacados} />
+        )}
+      </section>
+
+      <div className="trust-band">
+        <div className="wrap">
+          <span className="kick">Confían en nosotros</span>
+          <p>Trabajamos junto a constructoras, estudios de arquitectura y desarrolladoras en obras de todo el país.</p>
+        </div>
+      </div>
 
       <div className="closing-cta">
         <div className="wrap">

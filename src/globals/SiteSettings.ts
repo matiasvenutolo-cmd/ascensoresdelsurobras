@@ -57,5 +57,25 @@ export const SiteSettings: GlobalConfig = {
         { name: 'linkedin', type: 'text' },
       ],
     },
+    {
+      type: 'group',
+      name: 'testimonio',
+      label: 'Testimonio (⚠ ilustrativo — ver descripción)',
+      admin: {
+        description:
+          '⚠ ILUSTRATIVO: esta cita es de ejemplo, no de un cliente real, para no dejar el formulario de contacto sin ningún incentivo mientras se consigue un testimonio real. Reemplazar por una cita real en cuanto el cliente la provea.',
+      },
+      fields: [
+        {
+          name: 'cita',
+          type: 'textarea',
+          label: 'Cita',
+          defaultValue:
+            'Desde que solicitamos el presupuesto avanzamos mucho más rápido con el proyecto gracias a las recomendaciones del equipo de ADS.',
+        },
+        { name: 'autor', type: 'text', label: 'Autor', defaultValue: 'Dirección de obra' },
+        { name: 'rol', type: 'text', label: 'Rol / rubro', defaultValue: 'Estudio de arquitectura, Buenos Aires' },
+      ],
+    },
   ],
 }

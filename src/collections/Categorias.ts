@@ -48,7 +48,7 @@ export const Categorias: CollectionConfig = {
       type: 'number',
       defaultValue: 0,
       admin: {
-        description: 'Controla el orden en /productos. Menor primero.',
+        description: 'Controla el orden en la sección de productos de la home y en /soluciones. Menor primero.',
         position: 'sidebar',
       },
     },
@@ -61,7 +61,7 @@ export const Categorias: CollectionConfig = {
       name: 'descripcion',
       type: 'textarea',
       admin: {
-        description: 'Bajada corta para la card de la categoría en /productos.',
+        description: 'Bajada corta para la card de la categoría en la home y en /soluciones.',
       },
     },
   ],

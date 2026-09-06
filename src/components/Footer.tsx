@@ -39,11 +39,8 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           </div>
           <div>
             <h4>Secciones</h4>
-            <Link href="/nosotros">Nosotros</Link>
-            <Link href="/servicios">Servicios</Link>
-            <Link href="/productos">Productos</Link>
+            <Link href="/soluciones">Soluciones</Link>
             <Link href="/trabajos">Proyectos</Link>
-            <Link href="/certificaciones">Normativa</Link>
           </div>
           <div>
             <h4>Contacto</h4>

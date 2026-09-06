@@ -59,12 +59,13 @@ export type SiteSettings = {
   aniosTrayectoria?: number | null
   planta?: string | null
   sucursal?: string | null
+  testimonio?: {
+    cita?: string | null
+    autor?: string | null
+    rol?: string | null
+  } | null
 }
 
 export type Institucional = {
   textoPrincipal?: string | null
-  vision?: string | null
-  mision?: string | null
-  valores?: { titulo: string; descripcion?: string | null }[] | null
-  pilares?: { titulo: string; descripcion?: string | null }[] | null
 }

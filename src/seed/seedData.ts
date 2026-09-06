@@ -539,56 +539,24 @@ export async function runSeed(payload: Payload, log: (msg: string) => void = con
       telefono: '11-3273-6626',
       email: 'obras@ascensoresdelsur.com.ar',
       direccion: 'Hernandarias N° 3161, Lanús Oeste, Prov. de Buenos Aires',
+      testimonio: {
+        cita:
+          'Desde que solicitamos el presupuesto avanzamos mucho más rápido con el proyecto gracias a las recomendaciones del equipo de ADS.',
+        autor: 'Dirección de obra',
+        rol: 'Estudio de arquitectura, Buenos Aires',
+      },
     },
   })
 
   // El defaultValue de Institucional.ts solo se aplica la primera vez que se
   // crea el documento del global. Como ya existe en producción, lo
-  // actualizamos acá a mano para sumar el 4° pilar y el placeholder de
-  // Misión/Visión/Valores (ver ⚠ en Institucional.ts — es el de ADSUR,
-  // pendiente de reemplazar por el propio de esta unidad).
+  // actualizamos acá a mano con la versión editorial más corta del texto
+  // (pedida en el rediseño de /soluciones).
   await payload.updateGlobal({
     slug: 'institucional',
     data: {
-      vision:
-        'Ser la empresa Nº 1 en la producción de máquinas de tracción para ascensores en la ciudad de Buenos Aires, extendiendo este liderazgo a todo el mercado interno de nuestro país y procurando avanzar al exterior.',
-      mision:
-        'Brindar a los clientes la oportunidad de obtener una máquina de tracción para ascensores de altísima calidad con precios competitivos a nivel internacional, junto a un servicio personalizado para solucionar cualquier inconveniente que pueda surgir.',
-      valores: [
-        { titulo: 'Integridad', descripcion: 'Implica tener una conducta responsable, transparente y honesta.' },
-        {
-          titulo: 'Confianza',
-          descripcion:
-            'Basar las relaciones con los clientes en la consideración personal y profesional, brindándoles respaldo, flexibilidad y seguridad.',
-        },
-        { titulo: 'Innovación', descripcion: 'Buscar el progreso continuo, en lo referido a lo tecnológico y a su gente.' },
-        {
-          titulo: 'Calidad',
-          descripcion: 'Brindar siempre el mejor producto, disponiendo todos los esfuerzos del staff de la empresa para ese fin.',
-        },
-      ],
-      pilares: [
-        {
-          titulo: 'Calidad',
-          descripcion:
-            'Más de 30 años de trayectoria en instalación de ascensores y montacargas, con un plantel técnico especializado.',
-        },
-        {
-          titulo: 'Seguridad',
-          descripcion:
-            'Priorizamos la seguridad de personas y edificios en cada obra, trabajando con componentes certificados.',
-        },
-        {
-          titulo: 'Normativa',
-          descripcion:
-            'Cumplimos la normativa vigente para transporte vertical, en conjunto con proveedores especializados.',
-        },
-        {
-          titulo: 'Asesoramiento desde el anteproyecto',
-          descripcion:
-            'Asesoramos, diseñamos y proyectamos junto al equipo de obra desde las primeras etapas, para que el ascensor o montacargas se integre bien al proyecto.',
-        },
-      ],
+      textoPrincipal:
+        'Ascensores del Sur – Instalaciones, Obras y Proyectos diseña, fabrica e instala ascensores y montacargas a medida para obra nueva, con más de 30 años de trayectoria, planta industrial propia en Lanús y sucursal en Villa Gesell. Trabajamos con un plantel técnico especializado y proveedores certificados para sostener tres pilares: calidad, seguridad y normativa.',
     },
   })
 

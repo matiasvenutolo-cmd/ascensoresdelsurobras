@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
+import type { CSSProperties } from 'react'
 import { getPayload } from '@/lib/getPayload'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
 import { CotizacionForm } from '@/components/CotizacionForm'
 import { MailIcon, PhoneIcon, PinIcon, WhatsappIcon } from '@/components/icons'
-import type { SiteSettings } from '@/lib/types'
+import { primeraFoto } from '@/lib/trabajoHelpers'
+import { mediaUrl } from '@/lib/mediaUrl'
+import type { SiteSettings, Trabajo } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,8 +19,20 @@ export const metadata: Metadata = {
 
 export default async function ContactoPage() {
   const payload = await getPayload()
-  const settings = await payload.findGlobal({ slug: 'site-settings' })
+  const [settings, trabajosRes] = await Promise.all([
+    payload.findGlobal({ slug: 'site-settings' }),
+    payload.find({
+      collection: 'trabajos',
+      where: { destacada: { equals: true } },
+      limit: 1,
+      depth: 1,
+      overrideAccess: false,
+    }),
+  ])
   const s = settings as SiteSettings
+  const destacado = (trabajosRes.docs as unknown as Trabajo[])[0]
+  const panelImg = destacado ? mediaUrl(primeraFoto(destacado), 'hero') : undefined
+  const testimonio = s.testimonio
 
   return (
     <>
@@ -32,8 +47,25 @@ export default async function ContactoPage() {
       </section>
 
       <section>
-        <div className="wrap" style={{ maxWidth: 760 }}>
-          <CotizacionForm />
+        <div className="wrap contact-grid">
+          <div>
+            <CotizacionForm />
+          </div>
+          <div>
+            <div
+              className="feature-split-img"
+              style={panelImg ? ({ '--img': `url(${panelImg})` } as CSSProperties) : undefined}
+            />
+            {testimonio?.cita && (
+              <div className="quote-card">
+                <p>&ldquo;{testimonio.cita}&rdquo;</p>
+                <cite>
+                  {testimonio.autor}
+                  {testimonio.rol && <span> — {testimonio.rol}</span>}
+                </cite>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

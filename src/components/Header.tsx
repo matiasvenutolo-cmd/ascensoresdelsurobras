@@ -9,11 +9,8 @@ import { PhoneIcon, WhatsappIcon } from './icons'
 import type { SiteSettings } from '@/lib/types'
 
 const NAV = [
-  { href: '/nosotros', label: 'Nosotros' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/productos', label: 'Productos' },
+  { href: '/soluciones', label: 'Soluciones' },
   { href: '/trabajos', label: 'Proyectos' },
-  { href: '/certificaciones', label: 'Normativa' },
   { href: '/contacto', label: 'Contacto' },
 ]
 

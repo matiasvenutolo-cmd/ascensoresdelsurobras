@@ -133,3 +133,21 @@ export function LightbulbIcon({ className, size = 22 }: IconProps) {
     </svg>
   )
 }
+
+export function FactoryIcon({ className, size = 22 }: IconProps) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
+      <path d="M3 21V10l6 4v-4l6 4V6l6 4v11Z" />
+      <path d="M3 21h18" />
+      <path d="M7 21v-4M12 21v-4M17 21v-4" />
+    </svg>
+  )
+}
+
+export function ChevronIcon({ className, size = 18 }: IconProps) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
