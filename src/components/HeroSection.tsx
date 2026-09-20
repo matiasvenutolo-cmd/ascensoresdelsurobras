@@ -2,13 +2,8 @@ import Link from 'next/link'
 import { HeroVideoEl } from './HeroVideoEl'
 import { OpenDrawerButton } from './ContactDrawer'
 import { SITE } from '@/data/site'
-import { trabajoPorSlug } from '@/data/trabajos'
-import { categoriaPorSlug } from '@/data/categorias'
 
 export function HeroSection() {
-  const destacada = trabajoPorSlug('moreno-n-335')!
-  const categoriaDestacada = categoriaPorSlug(destacada.categorias[0])?.nombre
-
   return (
     <section className="hero">
       <HeroVideoEl />
@@ -50,18 +45,6 @@ export function HeroSection() {
         <div className="technical-grid" />
         <div className="crosshair" />
         <div className="hero-index">ADS / OBRAS</div>
-        <div className="hero-spec">
-          <div>
-            <span className="label">Proyecto destacado</span>
-            <strong>{destacada.titulo}</strong>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <span className="label">Solución</span>
-            <strong>
-              {categoriaDestacada} · {destacada.equipos[0]?.cargaUtilKg} kg
-            </strong>
-          </div>
-        </div>
       </div>
       <a href="#empresa" className="hero-scroll-cue">
         <span />
