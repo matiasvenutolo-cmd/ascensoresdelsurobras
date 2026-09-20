@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { getPayload } from '@/lib/getPayload'
-import type { SiteSettings } from '@/lib/types'
+import { ContactDrawerProvider } from '@/components/ContactDrawer'
+import { SITE } from '@/data/site'
 import './globals.css'
 
-const title = 'ADS — Ascensores del Sur | Instalaciones, Obras y Proyectos'
+const title = 'Ascensores del Sur | Instalaciones, Obras y Proyectos'
 const description =
   'Asesoramos, diseñamos, proyectamos, fabricamos e instalamos ascensores y montacargas a medida. Más de 30 años de trayectoria, planta industrial en Lanús y sucursal en Villa Gesell.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ascensoresdelsurobras.vercel.app'),
+  metadataBase: new URL(SITE.url),
   title,
   description,
   icons: {
@@ -30,34 +28,27 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
-  const payload = await getPayload()
-  const settings = (await payload.findGlobal({ slug: 'site-settings' })) as SiteSettings
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: SITE.legal,
+  description,
+  telephone: SITE.telefono,
+  email: SITE.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.direccion,
+    addressCountry: 'AR',
+  },
+  url: SITE.url,
+}
 
-  // JSON-LD Organization/LocalBusiness. Sin `email`: ese campo todavía no
-  // está confirmado con el cliente (ver admin.description en SiteSettings),
-  // y publicar un dato no confirmado en structured data es peor que omitirlo.
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'ADS — Ascensores del Sur',
-    description,
-    telephone: settings.telefono || undefined,
-    address: settings.direccion
-      ? {
-          '@type': 'PostalAddress',
-          streetAddress: settings.direccion,
-          addressCountry: 'AR',
-        }
-      : undefined,
-    url: 'https://ascensoresdelsurobras.vercel.app',
-  }
-
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="es">
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        {children}
+        <ContactDrawerProvider>{children}</ContactDrawerProvider>
       </body>
     </html>
   )

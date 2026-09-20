@@ -1,15 +1,17 @@
 import type { NextConfig } from 'next'
-import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      { source: '/nosotros', destination: '/soluciones', permanent: true },
-      { source: '/servicios', destination: '/soluciones', permanent: true },
-      { source: '/certificaciones', destination: '/soluciones', permanent: true },
-      { source: '/productos', destination: '/soluciones', permanent: true },
+      { source: '/nosotros', destination: '/', permanent: true },
+      { source: '/servicios', destination: '/', permanent: true },
+      { source: '/certificaciones', destination: '/', permanent: true },
+      { source: '/productos', destination: '/', permanent: true },
+      { source: '/soluciones', destination: '/', permanent: true },
+      { source: '/trabajos', destination: '/#obras', permanent: true },
+      { source: '/contacto', destination: '/?hablemos=1', permanent: true },
     ]
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default nextConfig

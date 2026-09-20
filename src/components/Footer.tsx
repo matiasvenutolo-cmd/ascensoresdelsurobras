@@ -1,58 +1,17 @@
 import Link from 'next/link'
-import type { SiteSettings } from '@/lib/types'
-import { Isotipo } from './Isotipo'
-import { InstagramIcon, FacebookIcon, LinkedinIcon } from './icons'
+import { SITE } from '@/data/site'
 
-export function Footer({ settings }: { settings: SiteSettings }) {
-  const redes = [
-    settings.instagram && { href: settings.instagram, label: 'Instagram', Icon: InstagramIcon },
-    settings.facebook && { href: settings.facebook, label: 'Facebook', Icon: FacebookIcon },
-    settings.linkedin && { href: settings.linkedin, label: 'LinkedIn', Icon: LinkedinIcon },
-  ].filter(Boolean) as { href: string; label: string; Icon: typeof InstagramIcon }[]
-
+export function Footer() {
   return (
-    <footer id="contacto">
-      <div className="wrap">
-        <div className="cols">
-          <div>
-            <Isotipo className="footer-brand-mark" />
-            <p style={{ marginTop: 4, maxWidth: 320, fontSize: 13.5 }}>
-              Instalaciones, obras y proyectos de ascensores y montacargas a medida. Más de{' '}
-              {settings.aniosTrayectoria ?? 30} años de trayectoria, planta industrial en {settings.planta ?? 'Lanús'}{' '}
-              y sucursal en {settings.sucursal ?? 'Villa Gesell'}.
-            </p>
-            {redes.length > 0 && (
-              <div className="footer-social">
-                {redes.map(({ href, label, Icon }) => (
-                  <a
-                    key={label}
-                    href={href.startsWith('http') ? href : `https://${href}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                  >
-                    <Icon size={17} />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-          <div>
-            <h4>Secciones</h4>
-            <Link href="/soluciones">Soluciones</Link>
-            <Link href="/trabajos">Proyectos</Link>
-          </div>
-          <div>
-            <h4>Contacto</h4>
-            {settings.direccion && <p>{settings.direccion}</p>}
-            {settings.telefono && <p>{settings.telefono}</p>}
-            {settings.email && <p>{settings.email}</p>}
-            <Link href="/faq">Preguntas frecuentes</Link>
-            <Link href="/privacidad">Política de privacidad</Link>
-          </div>
+    <footer>
+      <div className="footer-in">
+        <div>
+          <div className="footer-brand">{SITE.nombre}</div>
+          <div className="footer-small">{SITE.slogan}</div>
         </div>
-        <div className="bot">
-          <span>© {new Date().getFullYear()} ADS — Ascensores del Sur · Instalaciones, Obras y Proyectos</span>
+        <div className="footer-slogan">Potencia segura para el transporte vertical</div>
+        <div className="footer-small">
+          © {new Date().getFullYear()} ADS · <Link href="/privacidad">Política de privacidad</Link>
         </div>
       </div>
     </footer>

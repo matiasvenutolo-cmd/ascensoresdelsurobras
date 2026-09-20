@@ -24,62 +24,6 @@ export function CloseIcon({ className, size = 20 }: IconProps) {
   )
 }
 
-export function InstagramIcon({ className, size = 18 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
-    </svg>
-  )
-}
-
-export function FacebookIcon({ className, size = 18 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M14.5 21v-7h2.4l.4-3H14.5V9.2c0-.87.24-1.46 1.5-1.46H17.5V5.14C17.2 5.1 16.2 5 15 5c-2.4 0-4 1.46-4 4.14V11H8.6v3H11v7Z" />
-    </svg>
-  )
-}
-
-export function LinkedinIcon({ className, size = 18 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <rect x="3" y="3" width="18" height="18" rx="3" />
-      <line x1="7.5" y1="10.5" x2="7.5" y2="17" />
-      <circle cx="7.5" cy="7" r="0.6" fill="currentColor" stroke="none" />
-      <path d="M11.5 17v-4.2c0-1.4.9-2.3 2.2-2.3s2.1.9 2.1 2.3V17" />
-      <line x1="11.5" y1="10.5" x2="11.5" y2="17" />
-    </svg>
-  )
-}
-
-export function MailIcon({ className, size = 14 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M22 6l-10 7L2 6" />
-    </svg>
-  )
-}
-
-export function PhoneIcon({ className, size = 14 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.56 3.38 2 2 0 0 1 3.54 1.22h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6.29 6.29l.87-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  )
-}
-
-export function PinIcon({ className, size = 14 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M21 10c0 6.5-9 12-9 12s-9-5.5-9-12a9 9 0 0 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  )
-}
-
 export function WhatsappIcon({ className, size = 22 }: IconProps) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -88,66 +32,11 @@ export function WhatsappIcon({ className, size = 22 }: IconProps) {
   )
 }
 
-export function CertIcon({ className, size = 22 }: IconProps) {
+export function SendIcon({ className, size = 16 }: IconProps) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
-      <path d="M14 2v6h6" />
-      <path d="M9 15l2 2 4-4" />
-    </svg>
-  )
-}
-
-export function ArrowRightIcon({ className, size = 14 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  )
-}
-
-export function TargetIcon({ className, size = 22 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="5" />
-      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  )
-}
-
-export function ClockIcon({ className, size = 22 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3.5 2" />
-    </svg>
-  )
-}
-
-export function LightbulbIcon({ className, size = 22 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M9 18h6M10 21h4" />
-      <path d="M12 3a6 6 0 0 0-3.5 10.9c.4.3.6.8.6 1.3V16h5.8v-.8c0-.5.2-1 .6-1.3A6 6 0 0 0 12 3Z" />
-    </svg>
-  )
-}
-
-export function FactoryIcon({ className, size = 22 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M3 21V10l6 4v-4l6 4V6l6 4v11Z" />
-      <path d="M3 21h18" />
-      <path d="M7 21v-4M12 21v-4M17 21v-4" />
-    </svg>
-  )
-}
-
-export function ChevronIcon({ className, size = 18 }: IconProps) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" {...base}>
-      <path d="M6 9l6 6 6-6" />
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22l-4-9-9-4 20-7Z" />
     </svg>
   )
 }

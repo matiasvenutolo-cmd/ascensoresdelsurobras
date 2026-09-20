@@ -1,12 +1,12 @@
+import { SITE } from '@/data/site'
 import { WhatsappIcon } from './icons'
-import type { SiteSettings } from '@/lib/types'
 
-export function WhatsappFloat({ settings }: { settings: SiteSettings }) {
-  if (!settings.whatsapp) return null
+export function WhatsappFloat() {
+  if (!SITE.whatsapp) return null
   return (
     <a
       className="whatsapp-float"
-      href={`https://wa.me/${settings.whatsapp}`}
+      href={`https://wa.me/${SITE.whatsapp}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escribinos por WhatsApp"
