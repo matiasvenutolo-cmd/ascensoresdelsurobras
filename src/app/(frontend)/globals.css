@@ -180,6 +180,8 @@ button {
 
 /* ---------- hero ---------- */
 .hero {
+  position: relative;
+  overflow: hidden;
   min-height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
