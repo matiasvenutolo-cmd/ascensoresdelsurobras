@@ -524,6 +524,33 @@ button {
     top: 11%;
   }
 }
+/* ventanas anchas y bajas (portátil con poca altura, monitor ultrawide):
+   el contenido del hero pedía más alto que el viewport disponible y el
+   video/overlay quedaban más cortos que el texto, cortando mal contra la
+   siguiente sección. Se achica todo para que entre cómodo. */
+@media (max-height: 720px) {
+  .hero-copy {
+    padding-top: 96px;
+    padding-bottom: 30px;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5vw, 64px);
+    margin: 18px 0 14px;
+  }
+  .hero-intro {
+    font-size: 15px;
+  }
+  .hero-actions {
+    margin-top: 20px;
+  }
+  .hero-stats {
+    margin-top: 26px;
+    padding-top: 14px;
+  }
+  .stat strong {
+    font-size: 34px;
+  }
+}
 
 /* ---------- trust marquee ---------- */
 .trust-marquee {
