@@ -913,49 +913,69 @@ button {
   box-shadow: 0 8px 20px rgba(3, 78, 162, 0.12);
 }
 /* Soluciones — columnas que se expanden al pasar el mouse o tocar,
-   estilo adimra.org.ar (referencia que mandó el socio). */
+   estilo adimra.org.ar (referencia que mandó el socio). Las colapsadas
+   quedan en duotono azul (más prolijo, más de marca) y revelan el color
+   real de la foto al expandirse. */
 .showcase {
   display: flex;
-  gap: 6px;
-  height: 480px;
+  gap: 10px;
+  height: 500px;
 }
 .showcase-col {
   position: relative;
   flex: 1;
-  min-width: 64px;
-  border-radius: 20px;
+  min-width: 68px;
+  border-radius: 26px;
   overflow: hidden;
   cursor: pointer;
-  background: linear-gradient(160deg, var(--blue-deep), var(--blue));
-  transition: flex 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(165deg, var(--blue-deep), var(--blue));
+  box-shadow: 0 6px 18px rgba(4, 25, 46, 0.08);
+  transition: flex 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s;
 }
 .showcase-col.active {
   flex: 7;
+  box-shadow: 0 24px 55px rgba(2, 42, 88, 0.28);
+}
+.showcase-col img {
+  object-position: center;
+  filter: grayscale(0.55) saturate(1.4) brightness(0.8) contrast(1.05);
+  transform: scale(1.06);
+  transition: filter 0.6s ease, transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.showcase-col.active img {
+  filter: grayscale(0) saturate(1.05) brightness(0.94) contrast(1.02);
+  transform: scale(1.12);
 }
 .showcase-col::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(0deg, rgba(3, 20, 36, 0.9) 0%, rgba(3, 20, 36, 0.25) 45%, rgba(3, 20, 36, 0.35) 100%);
+  background: linear-gradient(0deg, rgba(2, 22, 46, 0.92) 0%, rgba(2, 30, 62, 0.5) 45%, rgba(3, 60, 110, 0.4) 100%);
   transition: background 0.4s;
 }
 .showcase-col.active::before {
-  background: linear-gradient(0deg, rgba(3, 20, 36, 0.92) 0%, rgba(3, 20, 36, 0.15) 50%, rgba(3, 20, 36, 0.05) 100%);
-}
-.showcase-col img {
-  object-position: center;
+  background: linear-gradient(0deg, rgba(2, 16, 34, 0.88) 0%, rgba(2, 22, 46, 0.1) 55%, rgba(2, 22, 46, 0) 100%);
 }
 .showcase-num {
   position: absolute;
   z-index: 2;
-  top: 20px;
-  left: 20px;
+  top: 18px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(3px);
   font-family: var(--display);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--orange);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 .showcase-label {
   position: absolute;
@@ -975,16 +995,17 @@ button {
 .showcase-col.active .showcase-label {
   writing-mode: horizontal-tb;
   transform: none;
-  font-size: 26px;
+  font-size: 27px;
+  letter-spacing: -0.01em;
   bottom: auto;
-  top: 60px;
+  top: 58px;
 }
 .showcase-detail {
   position: absolute;
   z-index: 2;
-  left: 24px;
-  right: 24px;
-  bottom: 22px;
+  left: 26px;
+  right: 26px;
+  bottom: 24px;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
@@ -996,44 +1017,49 @@ button {
   pointer-events: auto;
 }
 .showcase-detail p {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 13.5px;
   line-height: 1.55;
-  max-width: 44ch;
-  margin: 0 0 12px;
+  max-width: 42ch;
+  margin: 0 0 16px;
 }
 .showcase-detail a,
 .showcase-consult {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--display);
-  font-size: 14.5px;
+  font-size: 13.5px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 3px;
-  transition: 0.2s;
+  color: var(--ink);
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 18px;
+  transition: 0.25s;
 }
 .showcase-detail a:hover {
-  color: var(--orange);
-  border-color: var(--orange);
+  background: var(--orange);
+  transform: translateY(-2px);
 }
 .showcase-consult {
-  color: rgba(255, 255, 255, 0.65);
-  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.12);
   cursor: default;
 }
 @media (max-width: 900px) {
   .showcase {
     flex-direction: column;
     height: auto;
+    gap: 8px;
   }
   .showcase-col {
-    height: 60px;
+    height: 62px;
+    border-radius: 18px;
   }
   .showcase-col.active {
-    height: 340px;
+    height: 360px;
     flex: none;
   }
   .showcase-label {
@@ -1043,8 +1069,8 @@ button {
     bottom: 18px;
   }
   .showcase-col.active .showcase-label {
-    font-size: 22px;
-    top: 20px;
+    font-size: 23px;
+    top: 22px;
   }
   .showcase-num {
     top: 16px;
@@ -1053,7 +1079,7 @@ button {
 
 /* ---------- obras rail ---------- */
 .projects {
-  background: var(--black);
+  background: linear-gradient(155deg, var(--blue-deep), var(--blue) 120%);
   color: #fff;
   max-width: none;
   padding: 110px 0 110px max(34px, calc((100vw - var(--max)) / 2 + 34px));
