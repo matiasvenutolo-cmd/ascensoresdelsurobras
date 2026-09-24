@@ -31,12 +31,12 @@ export function HeroSection() {
             <span>Años en el sector</span>
           </div>
           <div className="stat">
-            <strong>AMBA</strong>
-            <span>Costa Atlántica · Zona de cobertura</span>
+            <strong>{SITE.planta}</strong>
+            <span>Planta industrial propia</span>
           </div>
           <div className="stat">
-            <strong>{SITE.planta}</strong>
-            <span>y {SITE.sucursal} · Casas centrales</span>
+            <strong>{SITE.sucursal}</strong>
+            <span>Sucursal propia</span>
           </div>
         </div>
       </div>

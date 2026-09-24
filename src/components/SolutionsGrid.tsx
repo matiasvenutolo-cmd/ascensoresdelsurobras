@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIAS } from '@/data/categorias'
@@ -15,16 +15,6 @@ const FILTROS = [
 
 export function SolutionsGrid() {
   const [filtro, setFiltro] = useState<string>('all')
-  const [active, setActive] = useState<string | null>(null)
-
-  const visibles = useMemo(() => CATEGORIAS.filter((c) => filtro === 'all' || c.filtro === filtro), [filtro])
-
-  useEffect(() => {
-    if (!visibles.find((c) => c.slug === active)) {
-      setActive(visibles[0]?.slug ?? null)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visibles])
 
   return (
     <>
@@ -39,45 +29,39 @@ export function SolutionsGrid() {
           </button>
         ))}
       </div>
-      <div className="showcase">
-        {visibles.map((c, i) => {
+      <div className="solution-grid">
+        {CATEGORIAS.map((c, i) => {
           const ejemplo = c.trabajoEjemplo ? trabajoPorSlug(c.trabajoEjemplo) : undefined
           const foto = ejemplo ? fotosDe(ejemplo)[0] : undefined
-          const isActive = active === c.slug
-          const codigo = String(i + 1).padStart(2, '0')
+          const hidden = filtro !== 'all' && c.filtro !== filtro
+          const codigo = `${String(i + 1).padStart(2, '0')} / ${c.filtro.toUpperCase()}`
 
-          const col = (
-            <div
-              className={`showcase-col${isActive ? ' active' : ''}${!foto ? ' no-photo' : ''}`}
-              onMouseEnter={() => setActive(c.slug)}
-              onClick={() => setActive(c.slug)}
-              onFocus={() => setActive(c.slug)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  setActive(c.slug)
-                }
-              }}
-              key={c.slug}
-            >
-              {foto && <Image src={foto} alt={ejemplo!.titulo} fill sizes="(max-width: 900px) 100vw, 20vw" style={{ objectFit: 'cover' }} />}
-              <span className="showcase-num">{codigo}</span>
-              <span className="showcase-label">{c.nombre}</span>
-              <div className="showcase-detail">
-                <p>{c.descripcion}</p>
-                {ejemplo ? (
-                  <Link href={`/trabajos/${ejemplo.slug}`} onClick={(e) => e.stopPropagation()}>
-                    Ver ejemplo de instalación →
-                  </Link>
-                ) : (
-                  <span className="showcase-consult">Consultanos por este equipo →</span>
-                )}
-              </div>
-            </div>
+          if (foto && ejemplo) {
+            return (
+              <Link
+                href={`/trabajos/${ejemplo.slug}`}
+                className={`solution-card solution-card-photo${hidden ? ' is-hidden' : ''}`}
+                key={c.slug}
+              >
+                <Image src={foto} alt={ejemplo.titulo} fill sizes="(max-width: 700px) 90vw, 45vw" style={{ objectFit: 'cover' }} />
+                <div className="solution-card-scrim" />
+                <div className="solution-card-content">
+                  <div className="solution-code">{codigo}</div>
+                  <h3>{c.nombre}</h3>
+                  <span className="solution-card-link">Ver ejemplo de instalación →</span>
+                </div>
+              </Link>
+            )
+          }
+
+          return (
+            <article className={`solution-card${hidden ? ' is-hidden' : ''}`} key={c.slug}>
+              <div className="solution-code">{codigo}</div>
+              <h3>{c.nombre}</h3>
+              <p>{c.descripcion}</p>
+              <div className="arrow">↗</div>
+            </article>
           )
-          return col
         })}
       </div>
     </>
