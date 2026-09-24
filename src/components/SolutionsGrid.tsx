@@ -30,39 +30,50 @@ export function SolutionsGrid() {
         ))}
       </div>
       <div className="solution-grid">
-        {CATEGORIAS.map((c, i) => {
-          const ejemplo = c.trabajoEjemplo ? trabajoPorSlug(c.trabajoEjemplo) : undefined
-          const foto = ejemplo ? fotosDe(ejemplo)[0] : undefined
-          const hidden = filtro !== 'all' && c.filtro !== filtro
-          const codigo = `${String(i + 1).padStart(2, '0')} / ${c.filtro.toUpperCase()}`
+        {(() => {
+          const visibleSlugs = CATEGORIAS.filter((c) => filtro === 'all' || c.filtro === filtro).map((c) => c.slug)
+          const lastVisibleSlug =
+            visibleSlugs.length % 2 === 1 ? visibleSlugs[visibleSlugs.length - 1] : null
 
-          if (foto && ejemplo) {
+          return CATEGORIAS.map((c, i) => {
+            const ejemplo = c.trabajoEjemplo ? trabajoPorSlug(c.trabajoEjemplo) : undefined
+            const foto = ejemplo ? fotosDe(ejemplo)[0] : undefined
+            const hidden = filtro !== 'all' && c.filtro !== filtro
+            const centered = c.slug === lastVisibleSlug
+            const codigo = `${String(i + 1).padStart(2, '0')} / ${c.filtro.toUpperCase()}`
+            const classes = [
+              'solution-card',
+              foto && ejemplo ? 'solution-card-photo' : '',
+              hidden ? 'is-hidden' : '',
+              centered ? 'solution-card-centered' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')
+
+            if (foto && ejemplo) {
+              return (
+                <Link href={`/trabajos/${ejemplo.slug}`} className={classes} key={c.slug}>
+                  <Image src={foto} alt={ejemplo.titulo} fill sizes="(max-width: 700px) 90vw, 45vw" style={{ objectFit: 'cover' }} />
+                  <div className="solution-card-scrim" />
+                  <div className="solution-card-content">
+                    <div className="solution-code">{codigo}</div>
+                    <h3>{c.nombre}</h3>
+                    <span className="solution-card-link">Ver ejemplo de instalación →</span>
+                  </div>
+                </Link>
+              )
+            }
+
             return (
-              <Link
-                href={`/trabajos/${ejemplo.slug}`}
-                className={`solution-card solution-card-photo${hidden ? ' is-hidden' : ''}`}
-                key={c.slug}
-              >
-                <Image src={foto} alt={ejemplo.titulo} fill sizes="(max-width: 700px) 90vw, 45vw" style={{ objectFit: 'cover' }} />
-                <div className="solution-card-scrim" />
-                <div className="solution-card-content">
-                  <div className="solution-code">{codigo}</div>
-                  <h3>{c.nombre}</h3>
-                  <span className="solution-card-link">Ver ejemplo de instalación →</span>
-                </div>
-              </Link>
+              <article className={classes} key={c.slug}>
+                <div className="solution-code">{codigo}</div>
+                <h3>{c.nombre}</h3>
+                <p>{c.descripcion}</p>
+                <div className="arrow">↗</div>
+              </article>
             )
-          }
-
-          return (
-            <article className={`solution-card${hidden ? ' is-hidden' : ''}`} key={c.slug}>
-              <div className="solution-code">{codigo}</div>
-              <h3>{c.nombre}</h3>
-              <p>{c.descripcion}</p>
-              <div className="arrow">↗</div>
-            </article>
-          )
-        })}
+          })
+        })()}
       </div>
     </>
   )

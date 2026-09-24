@@ -917,6 +917,19 @@ button {
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+/* si la cantidad de cards visibles (según el filtro) es impar, la última
+   queda sola en su fila — se centra en vez de quedar pegada a la
+   izquierda. */
+.solution-card-centered {
+  grid-column: 1 / -1;
+  max-width: calc(50% - 10px);
+  margin: 0 auto;
+}
+@media (max-width: 700px) {
+  .solution-card-centered {
+    max-width: none;
+  }
+}
 .solution-card {
   position: relative;
   min-height: 260px;
