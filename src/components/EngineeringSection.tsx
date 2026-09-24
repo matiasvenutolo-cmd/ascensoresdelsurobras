@@ -31,14 +31,12 @@ export function EngineeringSection() {
               <span>Años de trayectoria sectorial</span>
             </div>
             <div className="fact">
-              <strong>
-                {SITE.planta} · {SITE.sucursal}
-              </strong>
-              <span>Casas centrales</span>
+              <strong>{SITE.planta}</strong>
+              <span>y {SITE.sucursal} · Casas centrales</span>
             </div>
             <div className="fact">
-              <strong>{SITE.zonaCobertura}</strong>
-              <span>Zona de cobertura</span>
+              <strong>AMBA</strong>
+              <span>Costa Atlántica · Zona de cobertura</span>
             </div>
             <div className="fact">
               <strong>360°</strong>
