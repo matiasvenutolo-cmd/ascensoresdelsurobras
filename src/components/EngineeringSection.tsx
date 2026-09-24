@@ -1,43 +1,29 @@
+import Image from 'next/image'
 import { SITE } from '@/data/site'
 
 export function EngineeringSection() {
   return (
     <section className="section engineering" id="ingenieria">
       <div className="engineering-grid">
-        <div className="diagram" aria-label="Esquema técnico conceptual de un ascensor">
-          <div className="diagram-grid" />
-          <div className="machine" />
-          <div className="rope" />
-          <div className="shaft" />
-          <div className="cabin" />
-          <div className="counterweight" />
-          <div className="diagram-pin p1">
-            <span />
-            Máquina
-          </div>
-          <div className="diagram-pin p2">
-            <span />
-            Seguridad
-          </div>
-          <div className="diagram-pin p3">
-            <span />
-            Cabina
-          </div>
-          <div className="diagram-pin p4">
-            <span />
-            Contrapeso
-          </div>
-          <div className="diagram-caption">Esquema conceptual / Transporte vertical</div>
+        <div className="diagram diagram-photo">
+          <Image
+            src="/images/trabajos/2-de-mayo-n-2831/7.jpg"
+            alt="Estructura técnica de una instalación de ADS en obra"
+            fill
+            sizes="(max-width: 1050px) 90vw, 45vw"
+            style={{ objectFit: 'cover' }}
+          />
+          <div className="diagram-caption">Estructura de obra / 2 de Mayo N° 2831</div>
         </div>
         <div className="engineering-copy">
           <div className="label">Ingeniería</div>
           <h2 className="section-title">
-            La tecnología también tiene que <span className="orange">encajar.</span>
+            Ingeniería y gestión integral <span className="orange">de proyecto.</span>
           </h2>
           <p>
-            El proyecto no termina en elegir un equipo. Dimensiones, carga, recorrido, accesos, arquitectura y
-            condiciones de obra tienen que convivir. Por eso el valor está en definir una solución que funcione en el
-            edificio real.
+            Cada obra tiene una persona de ADS dedicada a la gestión integral del proyecto, para que el cumplimiento
+            técnico y normativo sea acorde a la necesidad del cliente y de la obra — desde el anteproyecto hasta la
+            puesta en servicio.
           </p>
           <div className="engineering-facts">
             <div className="fact">
@@ -45,12 +31,14 @@ export function EngineeringSection() {
               <span>Años de trayectoria sectorial</span>
             </div>
             <div className="fact">
-              <strong>{SITE.planta}</strong>
-              <span>Planta industrial propia</span>
+              <strong>
+                {SITE.planta} · {SITE.sucursal}
+              </strong>
+              <span>Casas centrales</span>
             </div>
             <div className="fact">
-              <strong>{SITE.sucursal}</strong>
-              <span>Sucursal propia</span>
+              <strong>{SITE.zonaCobertura}</strong>
+              <span>Zona de cobertura</span>
             </div>
             <div className="fact">
               <strong>360°</strong>

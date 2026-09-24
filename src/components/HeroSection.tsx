@@ -8,7 +8,6 @@ export function HeroSection() {
     <section className="hero">
       <HeroVideoEl />
       <div className="hero-video-overlay" />
-      <div className="hero-video-grid" />
       <div className="hero-copy">
         <div>
           <div className="eyebrow">Instalaciones · Obras · Proyectos</div>
@@ -32,12 +31,14 @@ export function HeroSection() {
             <span>Años en el sector</span>
           </div>
           <div className="stat">
-            <strong>{SITE.planta}</strong>
-            <span>Planta industrial propia</span>
+            <strong>{SITE.zonaCobertura}</strong>
+            <span>Zona de cobertura</span>
           </div>
           <div className="stat">
-            <strong>{SITE.sucursal}</strong>
-            <span>Sucursal propia</span>
+            <strong>
+              {SITE.planta} · {SITE.sucursal}
+            </strong>
+            <span>Casas centrales</span>
           </div>
         </div>
       </div>

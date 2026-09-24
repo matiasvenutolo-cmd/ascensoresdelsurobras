@@ -16,8 +16,8 @@ const STEPS = [
   },
   {
     n: '04',
-    titulo: 'Fabricamos',
-    texto: 'La solución se materializa con el respaldo industrial y la experiencia acumulada de la empresa.',
+    titulo: 'Entregamos',
+    texto: 'Coordinamos la entrega del equipo con el respaldo industrial y la experiencia acumulada de la empresa.',
   },
   {
     n: '05',
@@ -32,8 +32,11 @@ export function ProcessSection() {
       <div className="process-layout">
         <div className="process-side">
           <div className="label">Cómo trabajamos</div>
-          <h3>Una solución. Varias decisiones bien hechas.</h3>
-          <p>El valor de una solución a medida está en cómo se toman las decisiones antes, durante y después de instalar el equipo.</p>
+          <h3>Soluciones llave en mano desde el inicio del proyecto.</h3>
+          <p>
+            Ofrecemos asesoramiento desde el primer contacto y entregamos soluciones que cumplen normativas, con el
+            respaldo de nuestra calidad reconocida y en los tiempos de entrega acordados.
+          </p>
           <div className="process-line" />
         </div>
         <div className="steps">

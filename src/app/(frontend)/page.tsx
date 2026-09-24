@@ -30,7 +30,7 @@ export default function Home() {
             <div>
               <div className="label">Soluciones</div>
               <h2 className="section-title">
-                No todos los proyectos <span className="orange">piden lo mismo.</span>
+                La oferta <span className="orange">más amplia</span> de productos y soluciones.
               </h2>
             </div>
             <div className="section-copy">

@@ -10,6 +10,7 @@ export const SITE = {
   aniosTrayectoria: 30,
   planta: 'Lanús',
   sucursal: 'Villa Gesell',
+  zonaCobertura: 'AMBA · Costa Atlántica',
   url: 'https://ascensoresdelsurobras.vercel.app',
   instagram: '',
   facebook: '',

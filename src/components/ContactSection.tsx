@@ -8,7 +8,7 @@ export function ContactSection() {
         <div>
           <div className="label">Contacto</div>
           <h2 className="section-title">
-            Contanos qué necesitás <span className="orange">mover.</span>
+            Solicitá el <span className="orange">asesoramiento técnico</span> para tu obra.
           </h2>
           <p className="contact-copy">
             Una obra nueva, una ampliación, un requerimiento especial o una necesidad de transporte vertical. El
