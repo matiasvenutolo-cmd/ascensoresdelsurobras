@@ -32,7 +32,9 @@ export function ProcessSection() {
       <div className="process-layout">
         <div className="process-side">
           <div className="label">Cómo trabajamos</div>
-          <h3>Soluciones llave en mano desde el inicio del proyecto.</h3>
+          <h3>
+            Soluciones <span className="orange">llave en mano</span> desde el inicio del proyecto.
+          </h3>
           <p>
             Ofrecemos asesoramiento desde el primer contacto y entregamos soluciones que cumplen normativas, con el
             respaldo de nuestra calidad reconocida y en los tiempos de entrega acordados.

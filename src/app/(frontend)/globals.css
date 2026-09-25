@@ -805,6 +805,9 @@ button {
   margin: 20px 0 20px;
   color: var(--blue);
 }
+.process-side h3 .orange {
+  color: var(--orange);
+}
 .process-side p {
   max-width: 460px;
   color: var(--muted);
@@ -919,6 +922,9 @@ button {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+}
+.solutions .section-title {
+  color: var(--blue);
 }
 /* si la cantidad de cards visibles (según el filtro) es impar, la última
    queda sola en su fila — se centra en vez de quedar pegada a la
@@ -1228,6 +1234,7 @@ button {
   box-shadow: 0 20px 55px rgba(4, 25, 46, 0.08);
 }
 .engineering-copy .section-title {
+  color: var(--blue);
   margin-bottom: 28px;
 }
 .engineering-copy p {
