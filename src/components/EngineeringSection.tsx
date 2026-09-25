@@ -1,19 +1,12 @@
-import Image from 'next/image'
 import { SITE } from '@/data/site'
+import { IngenieriaAnimation } from './IngenieriaAnimation'
 
 export function EngineeringSection() {
   return (
     <section className="section engineering" id="ingenieria">
       <div className="engineering-grid">
-        <div className="diagram diagram-photo">
-          <Image
-            src="/images/trabajos/2-de-mayo-n-2831/7.jpg"
-            alt="Estructura técnica de una instalación de ADS en obra"
-            fill
-            sizes="(max-width: 1050px) 90vw, 45vw"
-            style={{ objectFit: 'cover' }}
-          />
-          <div className="diagram-caption">Estructura de obra / 2 de Mayo N° 2831</div>
+        <div className="diagram">
+          <IngenieriaAnimation />
         </div>
         <div className="engineering-copy">
           <div className="label">Ingeniería</div>

@@ -659,6 +659,9 @@ button {
 .statement {
   background: #fff;
 }
+.statement .section-title {
+  color: var(--blue);
+}
 .statement-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -672,7 +675,7 @@ button {
   line-height: 0.98;
   letter-spacing: -0.02em;
   margin: 0;
-  color: var(--blue);
+  color: var(--muted);
 }
 .pillars {
   display: grid;
@@ -1223,24 +1226,6 @@ button {
   overflow: hidden;
   border-radius: 28px;
   box-shadow: 0 20px 55px rgba(4, 25, 46, 0.08);
-}
-.diagram-photo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, transparent 55%, rgba(3, 20, 36, 0.82) 100%);
-}
-.diagram-caption {
-  position: absolute;
-  z-index: 2;
-  left: 24px;
-  bottom: 20px;
-  font-family: var(--display);
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 .engineering-copy .section-title {
   margin-bottom: 28px;
@@ -1918,4 +1903,168 @@ footer {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ---------- ingeniería / animación de proceso de obra (10s loop) ---------- */
+.ia {
+  --ia-dur: 10s;
+  --ia-bg: var(--blue-deep);
+  --ia-accent: var(--orange);
+  --ia-ink: rgba(255, 255, 255, 0.9);
+  --ia-soft: rgba(255, 255, 255, 0.45);
+  --ia-display: var(--display);
+  --ia-body: var(--body);
+
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ia-bg);
+  container-type: inline-size;
+}
+.ia-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.ia-bg { fill: var(--ia-bg); }
+.ia-grid-minor { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 0.5; }
+.ia-grid-major { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 0.75; }
+.ia-earth-line { stroke: rgba(255, 255, 255, 0.22); stroke-width: 1; }
+
+.ia-stroke { fill: none; stroke: var(--ia-ink); stroke-width: 1.5; stroke-linejoin: round; }
+.ia-wall { stroke-width: 2.5; }
+.ia-slab { fill: none; stroke: var(--ia-soft); stroke-width: 3; }
+.ia-shaft-cover { fill: var(--ia-bg); }
+.ia-shaft-tint { fill: rgba(255, 255, 255, 0.06); }
+.ia-rail { stroke: var(--ia-soft); stroke-width: 1.5; }
+.ia-ext { fill: none; stroke: var(--ia-soft); stroke-width: 0.75; stroke-dasharray: 2 3; }
+.ia-dim { fill: none; stroke: var(--ia-accent); stroke-width: 1; }
+
+.ia-label {
+  font-family: var(--ia-display);
+  font-weight: 700;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  fill: var(--ia-ink);
+}
+.ia-label--end { text-anchor: end; }
+.ia-label--mid { text-anchor: middle; }
+.ia-floor {
+  font-family: var(--ia-display);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  fill: var(--ia-soft);
+  text-anchor: end;
+}
+
+.ia-cable { fill: var(--ia-soft); transform-box: fill-box; transform-origin: 50% 0; }
+.ia-cabin-body { fill: rgba(250, 166, 26, 0.18); stroke: var(--ia-accent); stroke-width: 2; }
+.ia-cabin-door { stroke: var(--ia-accent); stroke-width: 1; }
+.ia-light { fill: rgba(250, 166, 26, 0); stroke: var(--ia-soft); stroke-width: 1; }
+
+.ia-bar-track { fill: rgba(255, 255, 255, 0.18); }
+.ia-bar-fill { fill: var(--ia-accent); transform-box: fill-box; transform-origin: 0 50%; }
+
+.ia-steps { position: absolute; top: 5.5%; left: 7%; right: 7%; pointer-events: none; }
+.ia-step, .ia-static { position: absolute; top: 0; left: 0; right: 0; opacity: 0; }
+.ia-static { display: none; opacity: 1; }
+.ia-step-h {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin: 0;
+  font-family: var(--ia-display);
+  font-weight: 800;
+  font-size: 7.5cqw;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.ia-step-n { color: var(--ia-accent); }
+.ia-step-d {
+  margin: 0.45em 0 0;
+  max-width: 28ch;
+  font-family: var(--ia-body);
+  font-size: max(12px, 3.3cqw);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ia-scene      { animation: ia-scene var(--ia-dur) linear infinite; }
+.ia-draw       { stroke-dasharray: 1; }
+.ia-d-ground   { animation: ia-d-ground var(--ia-dur) ease-out infinite; }
+.ia-d-building { animation: ia-d-building var(--ia-dur) ease-in-out infinite; }
+.ia-d-slab     { animation: ia-d-slab var(--ia-dur) ease-out infinite; }
+.ia-f-s1       { animation: ia-f-s1 var(--ia-dur) ease-out infinite; }
+.ia-f-s2       { animation: ia-f-s2 var(--ia-dur) ease-out infinite; }
+.ia-d-shaft    { animation: ia-d-shaft var(--ia-dur) ease-in-out infinite; }
+.ia-d-room     { animation: ia-d-room var(--ia-dur) ease-out infinite; }
+.ia-f-s3       { animation: ia-f-s3 var(--ia-dur) ease-out infinite; }
+.ia-d-dim      { animation: ia-d-dim var(--ia-dur) ease-out infinite; }
+.ia-d-rails    { animation: ia-d-rails var(--ia-dur) ease-out infinite; }
+.ia-f-s4       { animation: ia-f-s4 var(--ia-dur) ease-out infinite; }
+.ia-machine    { animation: ia-machine var(--ia-dur) ease-out infinite; }
+.ia-cabin      { animation: ia-cabin var(--ia-dur) ease-out infinite; }
+.ia-cable      { animation: ia-cable var(--ia-dur) ease-out infinite; }
+.ia-l0 { animation: ia-l0 var(--ia-dur) linear infinite; }
+.ia-l1 { animation: ia-l1 var(--ia-dur) linear infinite; }
+.ia-l2 { animation: ia-l2 var(--ia-dur) linear infinite; }
+.ia-l3 { animation: ia-l3 var(--ia-dur) linear infinite; }
+.ia-l4 { animation: ia-l4 var(--ia-dur) linear infinite; }
+.ia-bar-fill   { animation: ia-bar var(--ia-dur) linear infinite; }
+.ia-step       { animation: ia-step var(--ia-dur) ease-out infinite both; }
+.ia-step-2 { animation-delay: calc(var(--ia-dur) * 0.2); }
+.ia-step-3 { animation-delay: calc(var(--ia-dur) * 0.4); }
+.ia-step-4 { animation-delay: calc(var(--ia-dur) * 0.6); }
+.ia-step-5 { animation-delay: calc(var(--ia-dur) * 0.8); }
+
+@keyframes ia-scene      { 0% { opacity: 0; } 2%, 97% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes ia-d-ground   { 0%, 1% { stroke-dashoffset: 1; } 8%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-d-building { 0%, 2% { stroke-dashoffset: 1; } 14%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-d-slab     { 0%, 8% { stroke-dashoffset: 1; } 17%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-f-s1       { 0%, 4% { opacity: 0; } 10%, 100% { opacity: 1; } }
+@keyframes ia-f-s2       { 0%, 21% { opacity: 0; } 27%, 100% { opacity: 1; } }
+@keyframes ia-d-shaft    { 0%, 21% { stroke-dashoffset: 1; } 32%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-d-room     { 0%, 26% { stroke-dashoffset: 1; } 34%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-f-s3       { 0%, 41% { opacity: 0; } 48%, 100% { opacity: 1; } }
+@keyframes ia-d-dim      { 0%, 42% { stroke-dashoffset: 1; } 52%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-d-rails    { 0%, 60% { stroke-dashoffset: 1; } 68%, 100% { stroke-dashoffset: 0; } }
+@keyframes ia-f-s4       { 0%, 62% { opacity: 0; } 68%, 100% { opacity: 1; } }
+@keyframes ia-machine {
+  0%, 64% { opacity: 0; transform: translateY(-10px); }
+  72%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes ia-cabin {
+  0%, 70% { opacity: 0; transform: translateY(-14px); }
+  78% { opacity: 1; transform: translateY(0); }
+  80% { transform: translateY(0); animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); }
+  94%, 100% { opacity: 1; transform: translateY(-240px); }
+}
+@keyframes ia-cable {
+  0%, 74% { opacity: 0; transform: scaleY(1); }
+  78% { opacity: 1; }
+  80% { transform: scaleY(1); animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); }
+  94%, 100% { opacity: 1; transform: scaleY(0.0698); }
+}
+@keyframes ia-l0 { 0%, 79%   { fill: rgba(250, 166, 26, 0); } 80%, 100%   { fill: var(--ia-accent); } }
+@keyframes ia-l1 { 0%, 84.5% { fill: rgba(250, 166, 26, 0); } 85.5%, 100% { fill: var(--ia-accent); } }
+@keyframes ia-l2 { 0%, 87%   { fill: rgba(250, 166, 26, 0); } 88%, 100%   { fill: var(--ia-accent); } }
+@keyframes ia-l3 { 0%, 89.5% { fill: rgba(250, 166, 26, 0); } 90.5%, 100% { fill: var(--ia-accent); } }
+@keyframes ia-l4 { 0%, 93.5% { fill: rgba(250, 166, 26, 0); } 94.5%, 100% { fill: var(--ia-accent); } }
+@keyframes ia-bar  { 0% { transform: scaleX(0); } 96%, 100% { transform: scaleX(1); } }
+@keyframes ia-step {
+  0% { opacity: 0; transform: translateY(6px); }
+  3%, 17% { opacity: 1; transform: translateY(0); }
+  20%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+
+.ia[data-paused="true"] * { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ia * { animation: none !important; }
+  .ia-step { display: none; }
+  .ia-static { display: block; }
+  .ia-l0 { fill: var(--ia-accent); }
 }
