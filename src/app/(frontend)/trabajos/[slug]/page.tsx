@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { SiteHeader } from '@/components/SiteHeader'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
+import { Lightbox } from '@/components/Lightbox'
 import { TRABAJOS, trabajoPorSlug, fotosDe } from '@/data/trabajos'
 import { categoriaPorSlug } from '@/data/categorias'
 
@@ -52,13 +52,7 @@ export default async function TrabajoDetalle({ params }: { params: Promise<{ slu
         </div>
       </div>
 
-      <div className="detail-gallery">
-        {fotos.map((src, i) => (
-          <a key={src} href={src} target="_blank" rel="noopener noreferrer">
-            <Image src={src} alt={`${t.titulo} — foto ${i + 1}`} fill sizes="(max-width: 900px) 50vw, 25vw" style={{ objectFit: 'cover' }} priority={i === 0} />
-          </a>
-        ))}
-      </div>
+      <Lightbox photos={fotos} titulo={t.titulo} />
 
       {t.equipos.length > 0 && (
         <div className="detail-ficha">

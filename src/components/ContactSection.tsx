@@ -11,8 +11,7 @@ export function ContactSection() {
             Solicitá el <span className="orange">asesoramiento técnico</span> para tu obra.
           </h2>
           <p className="contact-copy">
-            Una obra nueva, una ampliación, un requerimiento especial o una necesidad de transporte vertical. El
-            primer paso es entender el proyecto.
+            Una obra nueva o una necesidad de transporte vertical. El primer paso es entender el proyecto.
           </p>
           <div className="contact-actions">
             <OpenDrawerButton className="btn btn-solid-blue">Enviar consulta</OpenDrawerButton>

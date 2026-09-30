@@ -22,7 +22,7 @@ export function HeroSection() {
             <Link href="#obras" className="btn btn-primary">
               Ver obras
             </Link>
-            <OpenDrawerButton className="btn btn-ghost">Hablar con un especialista</OpenDrawerButton>
+            <OpenDrawerButton className="btn btn-ghost">Conversar con un especialista</OpenDrawerButton>
           </div>
         </div>
         <div className="hero-stats">

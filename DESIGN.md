@@ -31,17 +31,16 @@ Principio rector: **todo lo que se muestra es real**. Ninguna cifra, testimonio 
 
 ## Estructura de la home
 
-Una sola página larga, navegación por anclas:
+Una sola página larga, navegación por anclas. Se consolidó a partir de una ronda de feedback: antes había 9 secciones con contenido repetido (una "La empresa" y un "Nuestro respaldo" separados, un "Cómo trabajamos" y una "Ingeniería" separados, un "Soluciones" y un "Obras realizadas" separados) — ahora son 6, sin perder ningún dato real:
 
-1. **Hero** — video de fondo (obra real), overlay azul oscuro (no negro), título grande, 2 CTA, 3 datos (años / planta / sucursal).
+1. **Hero** — video de fondo (obra real), overlay azul oscuro reforzado para que el texto se lea siempre bien, título grande, 2 CTA, 3 datos (años / planta / sucursal).
 2. **Marquee de confianza** — cinta con las palabras clave del negocio (Calidad · Seguridad · Normativa...) en loop.
-3. **La empresa** — texto institucional + 3 pilares (Calidad, Seguridad, Normativa) + panel azul destacado.
-4. **Cómo trabajamos** — proceso en 5 pasos (Asesoramos → Diseñamos → Proyectamos → Entregamos → Instalamos), con acompañamiento de texto sticky a la izquierda.
-5. **Soluciones** — grid de cards por tipo de equipo (hidráulico, electromecánico, monta vehículos, etc.), filtrable por Personas/Carga/Especiales. Las categorías con una obra real cargada muestran su foto y linkean a la ficha de esa obra; las que no, quedan en texto simple — nunca se inventa un ejemplo.
-6. **Obras realizadas** — rail horizontal (scroll + autoscroll) con las obras cargadas, fondo en degradé azul. Cada card linkea a la ficha completa de esa obra.
-7. **Ingeniería** — foto real de una obra en construcción + copy sobre gestión técnica de proyecto + datos (años, casas centrales, zona de cobertura).
-8. **Nuestro respaldo** — 4 puntos (Experiencia, Capacidad, Normativa, Continuidad), sobre fondo azul.
-9. **Contacto** — copy + datos de contacto + botón que abre el panel lateral de consulta.
+3. **La empresa** — texto institucional + los 6 pilares del negocio en un solo grid (Calidad, Seguridad, Normativa, Experiencia, Capacidad, Continuidad — fusión de los 3 "pilares" de antes con los 4 puntos de "Nuestro respaldo").
+4. **Cómo trabajamos** — proceso en 5 pasos (Asesoramos → Diseñamos → Proyectamos → Entregamos → Instalamos) con acompañamiento sticky a la izquierda, y debajo el plano animado de ingeniería (10 s en loop) + los datos de gestión de proyecto (años, casas centrales, zona de cobertura) — antes era una sección aparte llamada "Ingeniería".
+5. **Obras terminadas** — reemplaza a "Soluciones" + "Obras realizadas". Se organiza en 3 grupos (Ascensores, Monta Vehículos, Monta Cargas) y cada tipología dentro de un grupo (ej. "Ascensores hidráulicos") muestra un rail horizontal con las fotos de las obras reales que corresponden a esa tipología — se arma automáticamente filtrando `trabajos.ts` por categoría, no hay que curar "un ejemplo" a mano por tipología. Si una tipología todavía no tiene obra cargada, queda un texto simple ("Próximamente...") en vez de inventar una foto.
+6. **Contacto** — copy + datos de contacto + botón que abre el panel lateral de consulta.
+
+Cada foto del rail de "Obras terminadas" linkea a la ficha completa de esa obra, y dentro de la ficha las fotos se abren en un lightbox propio (con flechas, teclado y swipe) en vez de abrir la imagen suelta en una pestaña nueva.
 
 ## Página de obra (`/trabajos/[obra]`)
 

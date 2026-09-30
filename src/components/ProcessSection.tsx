@@ -1,8 +1,11 @@
+import { SITE } from '@/data/site'
+import { IngenieriaAnimation } from './IngenieriaAnimation'
+
 const STEPS = [
   {
     n: '01',
     titulo: 'Asesoramos',
-    texto: 'Analizamos necesidades, recorrido, cargas, arquitectura y condiciones de obra para definir el camino correcto.',
+    texto: 'Analizamos necesidades, recorrido, cargas y condiciones de obra para definir el camino correcto.',
   },
   {
     n: '02',
@@ -49,6 +52,37 @@ export function ProcessSection() {
               <p>{s.texto}</p>
             </article>
           ))}
+        </div>
+      </div>
+
+      <div className="process-engineering">
+        <div className="diagram">
+          <IngenieriaAnimation />
+        </div>
+        <div className="engineering-copy">
+          <div className="process-eng-title">Ingeniería y gestión de proyecto</div>
+          <p>
+            Cada obra tiene un responsable de ADS a cargo de la gestión integral del proyecto, para asegurar el
+            cumplimiento técnico y normativo de principio a fin — desde el anteproyecto hasta la puesta en servicio.
+          </p>
+          <div className="engineering-facts">
+            <div className="fact">
+              <strong>{SITE.aniosTrayectoria}+</strong>
+              <span>Años de trayectoria sectorial</span>
+            </div>
+            <div className="fact">
+              <strong>{SITE.planta}</strong>
+              <span>y {SITE.sucursal} · Casas centrales</span>
+            </div>
+            <div className="fact">
+              <strong>AMBA</strong>
+              <span>Costa Atlántica · Zona de cobertura</span>
+            </div>
+            <div className="fact">
+              <strong>360°</strong>
+              <span>Mirada desde proyecto a puesta en servicio</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

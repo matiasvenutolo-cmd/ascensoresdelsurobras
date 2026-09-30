@@ -60,10 +60,11 @@ function ContactForm({ onSent }: { onSent: () => void }) {
         <input id="telefono" name="telefono" placeholder="+54 11 1234-5678" />
       </div>
       <div className="drawer-field">
-        <label htmlFor="mensaje">
-          ¿Qué necesitás mover? <span className="opt">(opcional)</span>
-        </label>
-        <textarea id="mensaje" name="mensaje" placeholder="Contanos brevemente tu proyecto: tipo de obra, ubicación, etapa…" />
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          placeholder="Contanos brevemente: destino del proyecto, ubicación de la obra, equipo requerido…"
+        />
       </div>
 
       {state.error && <p className="drawer-error">{state.error}</p>}
@@ -114,7 +115,7 @@ export function ContactDrawerProvider({ children }: { children: ReactNode }) {
       <aside className={`drawer-panel${open ? ' open' : ''}`} aria-hidden={!open}>
         <div className="drawer-head">
           <div>
-            <h3>Hablemos de tu obra</h3>
+            <h3>Conversemos de tu obra</h3>
             <p>Te contactamos a la brevedad para coordinar el asesoramiento técnico.</p>
           </div>
           <button className="drawer-close" onClick={() => setOpen(false)} aria-label="Cerrar">

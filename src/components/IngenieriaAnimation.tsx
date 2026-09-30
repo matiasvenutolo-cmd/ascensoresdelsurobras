@@ -133,7 +133,7 @@ export function IngenieriaAnimation() {
             <span className="ia-step-n">02</span>
             <span>Diseñamos</span>
           </p>
-          <p className="ia-step-d">Integramos la solución al proyecto de arquitectura.</p>
+          <p className="ia-step-d">Integramos la solución al proyecto.</p>
         </div>
         <div className="ia-step ia-step-3">
           <p className="ia-step-h">

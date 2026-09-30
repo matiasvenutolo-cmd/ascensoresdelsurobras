@@ -9,9 +9,7 @@ import { SITE } from '@/data/site'
 const NAV = [
   { href: '#empresa', label: 'La empresa' },
   { href: '#proceso', label: 'Cómo trabajamos' },
-  { href: '#soluciones', label: 'Soluciones' },
-  { href: '#obras', label: 'Obras' },
-  { href: '#ingenieria', label: 'Ingeniería' },
+  { href: '#obras', label: 'Obras terminadas' },
 ]
 
 export function SiteHeader() {
