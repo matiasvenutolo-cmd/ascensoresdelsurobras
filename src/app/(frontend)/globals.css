@@ -332,12 +332,12 @@ button {
 }
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1.7fr;
   gap: 1px;
   margin-top: 72px;
   border-top: 1px solid rgba(255, 255, 255, 0.24);
   padding-top: 22px;
-  max-width: 720px;
+  max-width: 880px;
 }
 .stat strong {
   display: block;
@@ -803,18 +803,39 @@ button {
   color: var(--blue);
   max-width: none;
 }
-.special-project {
-  margin-top: 56px;
-  padding: 16px 22px;
-  border-top: 1px solid var(--line);
+.special-band {
+  background: linear-gradient(155deg, var(--blue-deep), var(--blue) 130%);
+  color: #fff;
+  padding: 44px 34px;
+}
+.special-band-in {
+  max-width: var(--max);
+  margin: 0 auto;
   display: flex;
-  align-items: baseline;
-  gap: 18px;
+  align-items: center;
+  gap: 26px;
+}
+.special-project-photo {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 10, 30, 0.35);
+  background: #fff;
+}
+.special-project-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 .special-project-kicker {
   font-family: var(--display);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -826,15 +847,32 @@ button {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--line);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 999px;
   padding: 3px 10px;
 }
-.special-project p {
+.special-band p {
   margin: 0;
-  font-size: 15px;
-  color: var(--muted);
+  font-family: var(--display);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+  max-width: 760px;
+}
+@media (max-width: 700px) {
+  .special-band {
+    padding: 34px 20px;
+  }
+  .special-band-in {
+    gap: 18px;
+  }
+  .special-project-photo {
+    width: 68px;
+    height: 68px;
+  }
 }
 @media (max-width: 700px) {
   .pillars {

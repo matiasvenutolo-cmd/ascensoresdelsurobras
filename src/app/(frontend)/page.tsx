@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { SiteHeader } from '@/components/SiteHeader'
 import { HeroSection } from '@/components/HeroSection'
 import { TrustMarquee } from '@/components/TrustMarquee'
@@ -22,6 +23,25 @@ export default function Home() {
 
         <ProcessSection />
 
+        <section className="special-band" aria-label="Proyecto especial">
+          <div className="special-band-in">
+            <Image
+              className="special-project-photo"
+              src="/images/especial/papa-leon-xiv.jpg"
+              alt="Papa León XIV"
+              width={208}
+              height={240}
+            />
+            <div>
+              <div className="special-project-head">
+                <div className="special-project-kicker">Proyecto especial</div>
+                <span className="special-project-tag">En construcción</span>
+              </div>
+              <p>El Papa León XIV usó un ascensor de nuestras obras en su visita a Argentina.</p>
+            </div>
+          </div>
+        </section>
+
         <section className="section obras-terminadas" id="obras">
           <div className="section-head">
             <div>
@@ -36,11 +56,6 @@ export default function Home() {
             </div>
           </div>
           <ObrasTerminadas />
-          <aside className="special-project">
-            <div className="special-project-kicker">Proyecto especial</div>
-            <span className="special-project-tag">En construcción</span>
-            <p>El Papa León XIV utilizará un ascensor de ADS cuando visite la Argentina.</p>
-          </aside>
         </section>
 
         <ContactSection />
