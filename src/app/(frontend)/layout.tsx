@@ -6,7 +6,7 @@ import './globals.css'
 
 const title = 'Ascensores del Sur | Instalaciones, Obras y Proyectos'
 const description =
-  'Asesoramos, diseñamos, proyectamos, fabricamos e instalamos ascensores y montacargas a medida. Más de 30 años de trayectoria, planta industrial en Lanús y sucursal en Villa Gesell.'
+  'Asesoramos, diseñamos, proyectamos, fabricamos e instalamos ascensores y montacargas a medida. Más de 30 años de trayectoria, planta industrial en Lanús y cobertura en AMBA y Costa Atlántica.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),

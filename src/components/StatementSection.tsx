@@ -3,7 +3,7 @@ const PILARES = [
   { num: '02', titulo: 'Seguridad', texto: 'Diseño y ejecución con foco en la seguridad de las personas y del equipo técnico.' },
   { num: '03', titulo: 'Normativa', texto: 'Una condición de proyecto, no una revisión de último momento.' },
   { num: '04', titulo: 'Experiencia', texto: 'Más de tres décadas trabajando en transporte vertical y desarrollando soluciones a medida.' },
-  { num: '05', titulo: 'Capacidad', texto: 'Equipo técnico estable y planta industrial propia en Lanús.' },
+  { num: '05', titulo: 'Capacidad', texto: 'Equipo técnico estable, planta industrial propia en Lanús y capacidad para proyectos de gran altura.' },
   { num: '06', titulo: 'Continuidad', texto: 'Una relación de trabajo pensada más allá de la instalación del equipo.' },
 ]
 
@@ -35,6 +35,23 @@ export function StatementSection() {
             <p>{p.texto}</p>
           </article>
         ))}
+      </div>
+      <div className="after-sale" aria-label="Más allá de la instalación">
+        <div className="after-sale-label">Más allá de la instalación</div>
+        <ol className="after-sale-steps">
+          <li>
+            <span>Instalación</span>
+          </li>
+          <li>
+            <span>Puesta en marcha</span>
+          </li>
+          <li className="hl">
+            <span>Garantía de 1 año</span>
+          </li>
+          <li className="hl">
+            <span>Servicio postventa</span>
+          </li>
+        </ol>
       </div>
     </section>
   )

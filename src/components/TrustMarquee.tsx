@@ -1,4 +1,4 @@
-const WORDS = ['Calidad', 'Seguridad', 'Normativa', 'Ingeniería', 'Fabricación', 'Instalación']
+const WORDS = ['Calidad', 'Seguridad', 'Normativa', 'Ingeniería', 'Fabricación', 'Instalación', 'Garantía', 'Postventa']
 
 export function TrustMarquee() {
   const items = [...WORDS, ...WORDS]

@@ -34,8 +34,8 @@ export function ContactSection() {
             <strong>{SITE.direccion}</strong>
           </div>
           <div className="contact-row">
-            <span>Provincia</span>
-            <strong>Buenos Aires · Argentina</strong>
+            <span>Cobertura</span>
+            <strong>AMBA y Costa Atlántica (Pinamar, Villa Gesell)</strong>
           </div>
         </aside>
       </div>

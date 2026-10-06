@@ -36,6 +36,11 @@ export default function Home() {
             </div>
           </div>
           <ObrasTerminadas />
+          <aside className="special-project">
+            <div className="special-project-kicker">Proyecto especial</div>
+            <span className="special-project-tag">En construcción</span>
+            <p>El Papa León XIV utilizará un ascensor de ADS cuando visite la Argentina.</p>
+          </aside>
         </section>
 
         <ContactSection />

@@ -65,6 +65,10 @@ export function ProcessSection() {
             Cada obra tiene un responsable de ADS a cargo de la gestión integral del proyecto, para asegurar el
             cumplimiento técnico y normativo de principio a fin — desde el anteproyecto hasta la puesta en servicio.
           </p>
+          <div className="highrise">
+            <div className="highrise-kicker">Gran altura</div>
+            <p>Nos estamos consolidando como el único proveedor para edificios de 20 pisos.</p>
+          </div>
           <div className="engineering-facts">
             <div className="fact">
               <strong>{SITE.aniosTrayectoria}+</strong>
@@ -72,11 +76,11 @@ export function ProcessSection() {
             </div>
             <div className="fact">
               <strong>{SITE.planta}</strong>
-              <span>y {SITE.sucursal} · Casas centrales</span>
+              <span>Planta industrial propia</span>
             </div>
             <div className="fact">
               <strong>AMBA</strong>
-              <span>Costa Atlántica · Zona de cobertura</span>
+              <span>y Costa Atlántica · Zona de cobertura</span>
             </div>
             <div className="fact">
               <strong>360°</strong>

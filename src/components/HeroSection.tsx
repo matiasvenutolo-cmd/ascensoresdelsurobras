@@ -12,9 +12,13 @@ export function HeroSection() {
         <div>
           <div className="eyebrow">Instalaciones · Obras · Proyectos</div>
           <h1>
-            Potencia <em>segura</em> para cada obra.
+            Vendemos <em>calidad</em>, instalamos confianza.
           </h1>
-          <p className="hero-intro">
+          <p className="hero-intro hero-intro-lead">
+            Más de 30 años construyendo confianza con cada cliente: experiencia, seguridad y trabajo bien hecho en cada
+            instalación.
+          </p>
+          <p className="hero-intro hero-intro-sub">
             Asesoramos, diseñamos, proyectamos, fabricamos e instalamos ascensores y montacargas a medida. Una mirada
             integral para resolver el transporte vertical desde el proyecto hasta la puesta en servicio.
           </p>
@@ -35,8 +39,8 @@ export function HeroSection() {
             <span>Planta industrial propia</span>
           </div>
           <div className="stat">
-            <strong>{SITE.sucursal}</strong>
-            <span>Sucursal propia</span>
+            <strong>AMBA</strong>
+            <span>y Costa Atlántica</span>
           </div>
         </div>
       </div>
