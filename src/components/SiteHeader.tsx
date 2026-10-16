@@ -29,7 +29,7 @@ export function SiteHeader() {
     <header className={`site-header${!isHome ? ' solid' : ''}${scrolled ? ' scrolled' : ''}`}>
       <nav className="nav">
         <Link href="/" className="brand" aria-label={SITE.nombre}>
-          <img src="/logo/ads-logo.png" alt={SITE.nombre} />
+          <img src="/logo/ads-logo-hero.png" alt={SITE.nombre} />
         </Link>
         <div className="nav-links">
           {NAV.map((n) => (

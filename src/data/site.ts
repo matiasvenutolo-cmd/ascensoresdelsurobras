@@ -13,6 +13,7 @@ export const SITE = {
   coberturaAmba: 'AMBA',
   coberturaCosta: ['Pinamar', 'Villa Gesell', 'Mar de las Pampas', 'Mar Azul'],
   url: 'https://ascensoresdelsurobras.vercel.app',
+  mostrarProyectoEspecial: false,
   instagram: '',
   facebook: '',
   linkedin: '',

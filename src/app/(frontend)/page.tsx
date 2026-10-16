@@ -9,6 +9,7 @@ import { GranAlturaSection } from '@/components/GranAlturaSection'
 import { ContactSection } from '@/components/ContactSection'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
+import { SITE } from '@/data/site'
 
 export default function Home() {
   return (
@@ -26,24 +27,26 @@ export default function Home() {
 
         <GranAlturaSection />
 
-        <section className="special-band" aria-label="Proyecto especial">
-          <div className="special-band-in">
-            <Image
-              className="special-project-photo"
-              src="/images/especial/papa-leon-xiv.jpg"
-              alt="Papa León XIV"
-              width={208}
-              height={240}
-            />
-            <div>
-              <div className="special-project-head">
-                <div className="special-project-kicker">Proyecto especial</div>
-                <span className="special-project-tag">En construcción</span>
+        {SITE.mostrarProyectoEspecial && (
+          <section className="special-band" aria-label="Proyecto especial">
+            <div className="special-band-in">
+              <Image
+                className="special-project-photo"
+                src="/images/especial/papa-leon-xiv.jpg"
+                alt="Papa León XIV"
+                width={208}
+                height={240}
+              />
+              <div>
+                <div className="special-project-head">
+                  <div className="special-project-kicker">Proyecto especial</div>
+                  <span className="special-project-tag">En construcción</span>
+                </div>
+                <p>El Papa León XIV usó un ascensor de nuestras obras en su visita a Argentina.</p>
               </div>
-              <p>El Papa León XIV usó un ascensor de nuestras obras en su visita a Argentina.</p>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="section obras-terminadas" id="obras">
           <div className="section-head">
