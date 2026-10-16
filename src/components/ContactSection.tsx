@@ -1,5 +1,6 @@
 import { SITE } from '@/data/site'
 import { OpenDrawerButton } from './ContactDrawer'
+import { WhatsappIcon } from './icons'
 
 export function ContactSection() {
   return (
@@ -14,10 +15,19 @@ export function ContactSection() {
             Una obra nueva o una necesidad de transporte vertical. El primer paso es entender el proyecto.
           </p>
           <div className="contact-actions">
-            <OpenDrawerButton className="btn btn-solid-blue">Enviar consulta</OpenDrawerButton>
-            <a className="btn btn-outline-blue" href={`tel:${SITE.telefonoHref}`}>
-              Llamar al {SITE.telefono}
+            <a
+              className="btn btn-whatsapp"
+              href={`https://wa.me/${SITE.whatsapp}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsappIcon size={18} />
+              Contactar por WhatsApp
             </a>
+            <a className="btn btn-outline-blue" href={`mailto:${SITE.email}`}>
+              Escribir por correo
+            </a>
+            <OpenDrawerButton className="btn btn-outline-blue">Enviar consulta</OpenDrawerButton>
           </div>
         </div>
         <aside className="contact-card">
@@ -26,8 +36,10 @@ export function ContactSection() {
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </div>
           <div className="contact-row">
-            <span>Teléfono</span>
-            <a href={`tel:${SITE.telefonoHref}`}>{SITE.telefono}</a>
+            <span>WhatsApp</span>
+            <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer">
+              {SITE.telefono}
+            </a>
           </div>
           <div className="contact-row">
             <span>Planta industrial</span>
@@ -35,7 +47,7 @@ export function ContactSection() {
           </div>
           <div className="contact-row">
             <span>Cobertura</span>
-            <strong>AMBA y Costa Atlántica (Pinamar, Villa Gesell)</strong>
+            <strong>{[SITE.coberturaAmba, ...SITE.coberturaCosta].join(' · ')}</strong>
           </div>
         </aside>
       </div>

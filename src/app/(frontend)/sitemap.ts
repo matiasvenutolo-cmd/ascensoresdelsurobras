@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getServerURL } from '@/lib/getURL'
 import { TRABAJOS } from '@/data/trabajos'
+import { EDIFICIOS_ALTURA } from '@/data/edificiosAltura'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getServerURL()
@@ -15,5 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }))
 
-  return [...staticRoutes, ...trabajoRoutes]
+  const edificioRoutes = EDIFICIOS_ALTURA.map((e) => ({
+    url: `${base}/gran-altura/${e.slug}`,
+    lastModified: new Date(),
+  }))
+
+  return [...staticRoutes, ...trabajoRoutes, ...edificioRoutes]
 }

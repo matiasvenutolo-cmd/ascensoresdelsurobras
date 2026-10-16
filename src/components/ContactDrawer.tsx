@@ -1,10 +1,9 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useActionState, Suspense, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, Suspense, type FormEvent, type ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { submitContacto, type ContactFormState } from '@/app/(frontend)/contacto/actions'
 import { SITE } from '@/data/site'
-import { SendIcon, WhatsappIcon, CloseIcon } from './icons'
+import { WhatsappIcon, CloseIcon } from './icons'
 
 type DrawerCtx = { openDrawer: () => void; closeDrawer: () => void }
 const Ctx = createContext<DrawerCtx | null>(null)
@@ -24,22 +23,59 @@ function AutoOpenFromQuery({ onOpen }: { onOpen: () => void }) {
   return null
 }
 
-const initialState: ContactFormState = { ok: false }
+function armarMensaje(fd: FormData) {
+  const campo = (k: string) => String(fd.get(k) || '').trim()
+  const nombre = campo('nombre')
+  const email = campo('email')
+  const telefono = campo('telefono')
+  const mensaje = campo('mensaje')
+  return {
+    nombre,
+    email,
+    texto: [
+      `Hola, soy ${nombre}. Quiero hacer una consulta de obra.`,
+      mensaje ? `\n${mensaje}` : null,
+      `\nMail: ${email}`,
+      telefono ? `Teléfono: ${telefono}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n'),
+  }
+}
 
-function ContactForm({ onSent }: { onSent: () => void }) {
-  const [state, formAction, pending] = useActionState(submitContacto, initialState)
+function ContactForm() {
+  const [error, setError] = useState('')
+  const [waUrl, setWaUrl] = useState<string | null>(null)
 
-  if (state.ok) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    if (fd.get('_hp')) return
+    const { nombre, email, texto } = armarMensaje(fd)
+    if (!nombre || !email) {
+      setError('Completá tu nombre y mail.')
+      return
+    }
+    const url = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(texto)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setWaUrl(url)
+  }
+
+  if (waUrl) {
     return (
       <div className="drawer-success">
         <h4>¡Listo!</h4>
-        <p>Recibimos tu consulta. Te contactamos a la brevedad.</p>
+        <p>Te abrimos WhatsApp con tu consulta escrita. Solo falta tocar enviar.</p>
+        <a className="drawer-whatsapp" href={waUrl} target="_blank" rel="noopener noreferrer">
+          <WhatsappIcon size={17} />
+          Si no se abrió, tocá acá
+        </a>
       </div>
     )
   }
 
   return (
-    <form action={formAction} className="drawer-form">
+    <form onSubmit={handleSubmit} className="drawer-form">
       <div className="drawer-hp" aria-hidden="true">
         <label htmlFor="_hp">No completar</label>
         <input type="text" id="_hp" name="_hp" tabIndex={-1} autoComplete="off" />
@@ -67,25 +103,12 @@ function ContactForm({ onSent }: { onSent: () => void }) {
         />
       </div>
 
-      {state.error && <p className="drawer-error">{state.error}</p>}
+      {error && <p className="drawer-error">{error}</p>}
 
-      <button type="submit" className="drawer-submit" disabled={pending}>
-        <SendIcon size={15} />
-        {pending ? 'Enviando…' : 'Enviar'}
+      <button type="submit" className="drawer-submit">
+        <WhatsappIcon size={16} />
+        Enviar por WhatsApp
       </button>
-
-      {SITE.whatsapp && (
-        <a
-          className="drawer-whatsapp"
-          href={`https://wa.me/${SITE.whatsapp}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onSent}
-        >
-          <WhatsappIcon size={17} />
-          Escribinos por WhatsApp
-        </a>
-      )}
     </form>
   )
 }
@@ -116,13 +139,13 @@ export function ContactDrawerProvider({ children }: { children: ReactNode }) {
         <div className="drawer-head">
           <div>
             <h3>Conversemos de tu obra</h3>
-            <p>Te contactamos a la brevedad para coordinar el asesoramiento técnico.</p>
+            <p>Completá tus datos y te abrimos WhatsApp con la consulta lista para enviar.</p>
           </div>
           <button className="drawer-close" onClick={() => setOpen(false)} aria-label="Cerrar">
             <CloseIcon size={16} />
           </button>
         </div>
-        <ContactForm onSent={() => setOpen(false)} />
+        <ContactForm />
       </aside>
     </Ctx.Provider>
   )

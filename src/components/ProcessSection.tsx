@@ -1,5 +1,7 @@
 import { SITE } from '@/data/site'
+import Link from 'next/link'
 import { IngenieriaAnimation } from './IngenieriaAnimation'
+import { EDIFICIOS_ALTURA } from '@/data/edificiosAltura'
 
 const STEPS = [
   {
@@ -62,12 +64,17 @@ export function ProcessSection() {
         <div className="engineering-copy">
           <div className="process-eng-title">Ingeniería y gestión de proyecto</div>
           <p>
-            Cada obra tiene un responsable de ADS a cargo de la gestión integral del proyecto, para asegurar el
-            cumplimiento técnico y normativo de principio a fin — desde el anteproyecto hasta la puesta en servicio.
+            El equipo de ingeniería tiene a cargo la gestión integral del proyecto, para asegurar el cumplimiento
+            técnico y normativo de principio a fin — desde el anteproyecto hasta la puesta en servicio.
           </p>
           <div className="highrise">
             <div className="highrise-kicker">Gran altura</div>
-            <p>Nos estamos consolidando como el único proveedor para edificios de 20 pisos.</p>
+            <p>Nos estamos consolidando como el único proveedor para edificios de gran altura.</p>
+            {EDIFICIOS_ALTURA.length > 0 && (
+              <Link href="#gran-altura" className="highrise-link">
+                Ver edificios de gran altura →
+              </Link>
+            )}
           </div>
           <div className="engineering-facts">
             <div className="fact">
@@ -79,8 +86,8 @@ export function ProcessSection() {
               <span>Planta industrial propia</span>
             </div>
             <div className="fact">
-              <strong>AMBA</strong>
-              <span>y Costa Atlántica · Zona de cobertura</span>
+              <strong>{SITE.coberturaAmba}</strong>
+              <span>{SITE.coberturaCosta.join(' · ')} · Zona de cobertura</span>
             </div>
             <div className="fact">
               <strong>360°</strong>

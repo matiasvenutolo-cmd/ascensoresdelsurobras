@@ -38,7 +38,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </div>
-        <OpenDrawerButton className="nav-cta">Hablemos</OpenDrawerButton>
+        <OpenDrawerButton className="nav-cta">Conversemos</OpenDrawerButton>
       </nav>
     </header>
   )

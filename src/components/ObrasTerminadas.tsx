@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIAS, GRUPOS } from '@/data/categorias'
-import { TRABAJOS, fotosDe } from '@/data/trabajos'
+import { TRABAJOS, portadaDe } from '@/data/trabajos'
 
 export function ObrasTerminadas() {
   return (
@@ -27,7 +27,7 @@ export function ObrasTerminadas() {
                       <div className="ot-rail">
                         {obras.map((o) => (
                           <Link href={`/trabajos/${o.slug}`} className="ot-photo" key={o.slug}>
-                            <Image src={fotosDe(o)[0]} alt={o.titulo} fill sizes="170px" style={{ objectFit: 'cover' }} />
+                            <Image src={portadaDe(o, c.slug)} alt={o.titulo} fill sizes="170px" style={{ objectFit: 'cover' }} />
                             <span>{o.titulo}</span>
                           </Link>
                         ))}

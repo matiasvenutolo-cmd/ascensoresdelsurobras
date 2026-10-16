@@ -5,6 +5,7 @@ import { TrustMarquee } from '@/components/TrustMarquee'
 import { StatementSection } from '@/components/StatementSection'
 import { ProcessSection } from '@/components/ProcessSection'
 import { ObrasTerminadas } from '@/components/ObrasTerminadas'
+import { GranAlturaSection } from '@/components/GranAlturaSection'
 import { ContactSection } from '@/components/ContactSection'
 import { Footer } from '@/components/Footer'
 import { WhatsappFloat } from '@/components/WhatsappFloat'
@@ -22,6 +23,8 @@ export default function Home() {
         <StatementSection />
 
         <ProcessSection />
+
+        <GranAlturaSection />
 
         <section className="special-band" aria-label="Proyecto especial">
           <div className="special-band-in">

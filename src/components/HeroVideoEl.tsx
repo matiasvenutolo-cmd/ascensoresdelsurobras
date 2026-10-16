@@ -8,6 +8,11 @@ export function HeroVideoEl() {
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
+    video.playbackRate = 0.8
+    const keepRate = () => {
+      video.playbackRate = 0.8
+    }
+    video.addEventListener('loadedmetadata', keepRate)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) video.play().catch(() => {})
@@ -16,7 +21,10 @@ export function HeroVideoEl() {
       { threshold: 0.1 },
     )
     observer.observe(video)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      video.removeEventListener('loadedmetadata', keepRate)
+    }
   }, [])
 
   return (

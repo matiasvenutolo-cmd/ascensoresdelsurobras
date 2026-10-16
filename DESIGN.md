@@ -70,4 +70,6 @@ No hay imágenes de stock ni ilustraciones genéricas — todas las fotos son de
 | Tipos de equipo / categorías | `src/data/categorias.ts` |
 | Obras cargadas y sus fichas técnicas | `src/data/trabajos.ts` |
 | Fotos de cada obra | `public/images/trabajos/<obra>/` |
+| Qué fotos corresponden a cada equipo de una obra | `fotos: [n, …]` y `categoria` en cada equipo de `src/data/trabajos.ts` (si ningún equipo tiene fotos asignadas, la ficha muestra una sola galería) |
+| Edificios de gran altura | `src/data/edificiosAltura.ts` + fotos en `public/images/gran-altura/<edificio>/` (`fachada.jpg`, `ascensor-1.jpg`, …). Con la lista vacía, la sección no aparece |
 | Textos de cada sección de la home | `src/components/*Section.tsx` |

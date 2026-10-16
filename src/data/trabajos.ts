@@ -4,6 +4,10 @@ export type Equipo = {
   cargaUtilKg?: number
   velocidadMpm?: number
   detalle?: string
+  /** Slug de categorías.ts. Hace falta cuando una obra tiene equipos de distinto tipo. */
+  categoria?: string
+  /** Números de archivo (1.jpg, 2.jpg…) de la carpeta de la obra que muestran este equipo. */
+  fotos?: number[]
 }
 
 export type Trabajo = {
@@ -56,6 +60,8 @@ export const TRABAJOS: Trabajo[] = [
         velocidadMpm: 60,
         detalle:
           'Terminación de cabina con frente y detalles en acero inoxidable. Puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+        categoria: 'ascensores-electromecanicos',
+        fotos: [1, 2, 3, 4, 5, 6, 7],
       },
       {
         resumen: 'Instalación de un monta vehículo',
@@ -64,6 +70,8 @@ export const TRABAJOS: Trabajo[] = [
         velocidadMpm: 10,
         detalle:
           '3 accesos. Doble pistón lateral, relación 1:1. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+        categoria: 'monta-vehiculos',
+        fotos: [8],
       },
     ],
   },
@@ -83,6 +91,8 @@ export const TRABAJOS: Trabajo[] = [
         velocidadMpm: 60,
         detalle:
           'Terminación de cabina y puertas de 2 hojas en acero inoxidable en Planta Baja, resto de los pisos en epoxi. Botonera de cabina táctil.',
+        categoria: 'ascensores-electromecanicos',
+        fotos: [1, 2, 3, 4, 5],
       },
       {
         resumen: 'Instalación de un monta vehículo',
@@ -91,6 +101,8 @@ export const TRABAJOS: Trabajo[] = [
         velocidadMpm: 10,
         detalle:
           '3 accesos. Pistón central enterrado. Terminación de cabina en epoxi. Doble botonera de cabina aplicada inoxidable. Paños laterales hasta 1600 mm. Piso en chapa estampada tipo semilla de melón.',
+        categoria: 'monta-vehiculos',
+        fotos: [6, 7, 8],
       },
     ],
   },
@@ -127,7 +139,7 @@ export const TRABAJOS: Trabajo[] = [
         cargaUtilKg: 450,
         velocidadMpm: 30,
         detalle:
-          'Terminación de cabina, frente y detalles en acero inoxidable. Puertas de 2 hojas acristaladas en acero inoxidable en todos los pisos. Botonera de cabina táctil.',
+          'Terminación de cabina con frente y detalles en acero inoxidable. Puertas de 2 hojas acristaladas en acero inoxidable en todos los pisos. Botonera de cabina táctil.',
       },
     ],
   },
@@ -178,7 +190,7 @@ export const TRABAJOS: Trabajo[] = [
   },
   {
     slug: 'venezuela-n-1278-ascensores-n-1-y-2',
-    titulo: 'Venezuela N° 1278 — Ascensores N° 1 y 2',
+    titulo: 'Venezuela N° 1278 — Instituto de Enseñanza de Nivel Superior FATSA',
     direccion: 'Venezuela N° 1278',
     localidad: 'Capital Federal',
     categorias: ['ascensores-electromecanicos'],
@@ -191,7 +203,7 @@ export const TRABAJOS: Trabajo[] = [
         cargaUtilKg: 1200,
         velocidadMpm: 60,
         detalle:
-          'Terminación de cabina y puertas de 3 hojas en acero inoxidable anti vandálico. Bajo techo especial a medida para el cliente. Dentro de estructura auto portante en caño estructural.',
+          'Terminación de cabina y puertas de 3 hojas en acero inoxidable anti vandálico. Bajo techo especial a pedido del cliente. Dentro de estructura auto portante en caño estructural.',
       },
     ],
   },
@@ -215,10 +227,11 @@ export const TRABAJOS: Trabajo[] = [
   },
   {
     slug: 'carlos-calvo-n-2560',
-    titulo: 'Carlos Calvo N° 2560',
+    titulo: 'Carlos Calvo N° 2560 — PYAT S.A.',
     direccion: 'Carlos Calvo N° 2560',
     localidad: 'Capital Federal',
     categorias: ['ascensores-hidraulicos'],
+    tipoEdificio: 'corporativo',
     fotos: 6,
     equipos: [
       {
@@ -252,8 +265,8 @@ export const TRABAJOS: Trabajo[] = [
   },
   {
     slug: 'sanchez-de-loria-n-2364',
-    titulo: 'Sanchez de Loria N° 2364',
-    direccion: 'Sanchez de Loria N° 2364',
+    titulo: 'Sánchez de Loria N° 2364 — Sede Central del IUDPT',
+    direccion: 'Sánchez de Loria N° 2364',
     localidad: 'Capital Federal',
     categorias: ['ascensores-electromecanicos'],
     fotos: 8,
@@ -380,7 +393,7 @@ export const TRABAJOS: Trabajo[] = [
         paradas: 5,
         cargaUtilKg: 1000,
         velocidadMpm: 30,
-        detalle: 'Terminación de cabina y puertas de 3 hojas en epoxi.',
+        detalle: 'Doble acceso a 180°. Terminación de cabina y puertas de 3 hojas en epoxi.',
       },
     ],
   },
@@ -388,4 +401,12 @@ export const TRABAJOS: Trabajo[] = [
 
 export const trabajoPorSlug = (slug: string) => TRABAJOS.find((t) => t.slug === slug)
 
-export const fotosDe = (t: Trabajo) => Array.from({ length: t.fotos }, (_, i) => `/images/trabajos/${t.slug}/${i + 1}.jpg`)
+export const fotoDe = (t: Trabajo, n: number) => `/images/trabajos/${t.slug}/${n}.jpg`
+
+export const fotosDe = (t: Trabajo) => Array.from({ length: t.fotos }, (_, i) => fotoDe(t, i + 1))
+
+/** Portada de la obra para una categoría: la primera foto del equipo de ese tipo, si está asignada. */
+export const portadaDe = (t: Trabajo, categoria?: string) => {
+  const eq = t.equipos.find((e) => e.categoria === categoria && e.fotos?.length)
+  return eq ? fotoDe(t, eq.fotos![0]) : fotoDe(t, 1)
+}

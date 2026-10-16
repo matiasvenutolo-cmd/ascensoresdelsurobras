@@ -35,11 +35,15 @@ export function HeroSection() {
             <span>Años en el sector</span>
           </div>
           <div className="stat">
-            <strong>AMBA</strong>
+            <strong>{SITE.coberturaAmba}</strong>
             <span>Zona de cobertura</span>
           </div>
-          <div className="stat">
-            <strong>Costa Atlántica</strong>
+          <div className="stat stat-places">
+            <ul>
+              {SITE.coberturaCosta.map((l) => (
+                <li key={l}>{l}</li>
+              ))}
+            </ul>
             <span>Zona de cobertura</span>
           </div>
         </div>

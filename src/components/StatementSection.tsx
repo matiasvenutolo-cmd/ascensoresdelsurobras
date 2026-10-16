@@ -24,8 +24,8 @@ export function StatementSection() {
       </div>
       <p className="statement-lead">Más de 30 años transformando requerimientos técnicos en soluciones a medida.</p>
       <p className="statement-sub">
-        La confianza en una obra no se gana con un cartel de certificaciones: se gana con experiencia real, procesos
-        claros y cumplimiento normativo en cada instalación.
+        La confianza en una obra se gana con experiencia real, procesos claros y cumplimiento normativo en cada
+        instalación.
       </p>
       <div className="pillars">
         {PILARES.map((p) => (
